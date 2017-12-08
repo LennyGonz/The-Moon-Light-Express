@@ -3,5 +3,5 @@ Django==2.0.0
 Jinja2==2.10
 python-dateutil==2.6.1
 gunicorn==19.7.1
-whitenoise==3.5.0
+whitenoise==3.3.1
 MySQL-python==1.2.5
