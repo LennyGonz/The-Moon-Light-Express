@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> Moonlight Express </title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" integrity="sha384-OHBBOqpYHNsIqQy8hL1U+8OXf9hH6QRxi0+EODezv82DfnZoV7qoHAZDwMwEJvSw" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/landing_page.css">
+
+</head>
+
+<body>
+    <!--
+    ====================== NAVBAR =====================    
+    -->
+    <!-- Image and text -->
+    <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="#" style="color:white">
+                <img src="/static/img/train_icon.svg" alt="logo" width="30" height="30" style="color:white"> The Moonlight Express
+            </a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fa fa-bars"></i></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav mr-auto text-uppercase">
+                    <li class="nav-item active">
+                        <a class="nav-link js-scroll-trigger" href="#" style="color:white">Reservations</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link js-scroll-trigger" href="#" style="color:white">Display Data</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--
+    ==================== END-NAVBAR ====================    
+    -->
+
+    <!--
+    ====================== TEXT ======================
+    -->
+    <div class="background">
+        <div class="transbox">
+            <p>The Data Science Professor sucks and I hope she gets fired.</p>
+        </div>
+    </div>
+    <!--
+    ==================== END-TEXT ====================
+    -->
+    <!-- 
+    ==================== background ====================  
+    -->
+    <!-- https://codepad.co/snippet/2783k8yG -->
+    <!--
+    <div id="myImgId" style="width: 200px; height: 200px; background:#000;" onmousedown="doSomething()" onmouseup="return false;">
+        <img src="/static/img/bg.png" alt="">
+        <svg id="svgOne" y="200" width="500" height="500" style="position:absolute; left:90px; top:90px; right:180px; bottom:50px;">
+            <rect width="300" height="100" style="fill:rgb(0,0,0);stroke-width:3;stroke:rgb(0,0,0)" />
+        </svg>
+    </div>
+    -->
+    <div>
+        <div class="background"></div>
+        <div class="rocks_1"></div>
+        <div class="rocks_2"></div>
+        <div class="rails"></div>
+        <div class="train"></div>
+        <div class="ground"></div>
+        <div class="lights"></div>
+        <div class="moon"></div>
+    </div>
+    <!-- 
+    ================== end-background ==================  
+    -->
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script>
+        var jumboHeight = $('.jumbotron').outerHeight();
+
+        function parallax() {
+            var scrolled = $(window).scrollTop();
+            $('.bg').css('height', (jumboHeight - scrolled) + 'px');
+        }
+
+        $(window).scroll(function(e) {
+            parallax();
+        });
+    </script>
+</body>
+
+</html>
