@@ -79,8 +79,12 @@ WSGI_APPLICATION = 'themoonlightexpress.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'railroad1',
+        'USER': 'rohan',
+        'PASSWORD': 'rohan',
+        'HOST': '35.224.16.194',
+        'PORT': '3306',
     }
 }
 
