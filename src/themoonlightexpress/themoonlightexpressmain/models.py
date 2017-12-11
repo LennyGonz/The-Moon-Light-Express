@@ -27,6 +27,7 @@ class Passengers(models.Model):
     preferred_card_number = models.CharField(max_length=16, blank=True, null=True)
     preferred_billing_address = models.CharField(max_length=100, blank=True, null=True)
 
+
     class Meta:
         managed = False
         db_table = 'passengers'
@@ -38,6 +39,7 @@ class Reservations(models.Model):
     paying_passenger = models.ForeignKey(Passengers, models.DO_NOTHING)
     card_number = models.CharField(max_length=16, blank=True, null=True)
     billing_address = models.CharField(max_length=100, blank=True, null=True)
+
 
     class Meta:
         managed = False
@@ -95,6 +97,7 @@ class Trains(models.Model):
     train_end = models.ForeignKey(Stations, models.DO_NOTHING, related_name='train_end')
     train_direction = models.IntegerField(blank=True, null=True)
     train_days = models.IntegerField(blank=True, null=True)
+
 
     class Meta:
         managed = False
