@@ -7,7 +7,7 @@ cursor = db.cursor()
 
 
 
-def LookingReservation(location, destination):
+def getstaion(location, destination):
     #get train_id, segment_id
     cursor.execute("""select station_id from stations where station_name= %s""" , [location])
     startid = cursor.fetchone()
@@ -34,7 +34,11 @@ def direction(startId,endId):
     else:
         return 0
 
-def MF(year,month,day):
+def MF(date1):
+    data = date1.split("-")
+    year = int(data[0])
+    month = int(data[1])
+    day = int(data[2])
     weekday=datetime.date(year,month,day).weekday()
     if(weekday== 5):
         day =1
@@ -44,7 +48,7 @@ def MF(year,month,day):
         day=0
     return day
 
-def trains(direction,day):
+def trainsavible(direction,day):
     train_id_list = []
     cursor.execute("""select train_id from trains where train_days = %s and train_direction = %s""" , (day,direction))
     data = cursor.fetchall()
@@ -53,8 +57,23 @@ def trains(direction,day):
     print(train_id_list)
     return train_id_list
 
-#def Totalfare(seg1,seg2,type):
+def Totalfare(segid,type):
+    fare = 0
+    rate = 0
+    total= 0
+    for id in segid:
+        cursor.execute("""select seg_fare from segments WHERE segment_id = %s""", [id])
+        row = cursor.fetchone()
+        fare = fare + row[0]
+    cursor.execute("""select rate from fare_types WHERE fare_name = %s""", [type])
+    row1 = cursor.fetchone()
+    rate = row1[0]
+    total = rate + fare
+    print(total)
+    return total
 
 
-LookingReservation('Boston, MA - South Station','Stamford, CT')
-trains(0,1)
+getstaion('Boston, MA - South Station','Stamford, CT')
+trainsavible(0,1)
+print(MF("2017-12-12"))
+Totalfare((1,2,3,4,5),"adult")
