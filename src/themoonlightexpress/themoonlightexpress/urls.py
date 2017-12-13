@@ -23,5 +23,5 @@ urlpatterns = [
     #url(r'^search/', include('themoonlightexpressmain.urls')),  # including the urls belonging to amtrak app
     #url(r'^reservations/', include('reservation.urls')),
     url(r'^admin/', admin.site.urls),
-    #url(r'^displaytables/', include('displaydata.urls')),
+    url(r'^moonlightexpress/', include('reservation.urls')),
 ]
