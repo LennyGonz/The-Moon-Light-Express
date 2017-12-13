@@ -60,7 +60,7 @@ def get_time(train_id, location, destination):
         row = cursor.fetchone()
         mylist.append(str(row[0]))
         mylist.append(str(row[1]))
-        print(mylist)
+        return mylist
 
 
 

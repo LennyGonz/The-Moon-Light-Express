@@ -115,13 +115,14 @@ def schedule(id):
             timeline.append(str(row[2]))
     return timeline
 
-
-print(schedule(2))
-
-#it works
-print(getstaion('Boston, MA - South Station','Stamford, CT'))
-print(trainsavible(0,1))
-print(MF("2017-12-12"))
-print(Totalfare((1,2,3,4,5),"adult"))
-#reservation("2017-2-13",1,"544765434546","NY")
-#passenger("rohan","swaby","lol@gmail.com","1235","654325543","BRONX")
+cursor.close()
+db.close()
+# print(schedule(2))
+#
+# #it works
+# print(getstaion('Boston, MA - South Station','Stamford, CT'))
+# print(trainsavible(0,1))
+# print(MF("2017-12-12"))
+# print(Totalfare((1,2,3,4,5),"adult"))
+# #reservation("2017-2-13",1,"544765434546","NY")
+# #passenger("rohan","swaby","lol@gmail.com","1235","654325543","BRONX")
