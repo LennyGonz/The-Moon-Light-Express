@@ -9,3 +9,14 @@ class ReservationsForms(forms.Form):
     end_station = forms.ModelChoiceField(queryset=Stations.objects.all())
     date = forms.DateField(help_text="enter date")
 
+
+class PassengerForms(forms.Form):
+    # here we need to get all the information for the passenger
+    fname = forms.CharField(required=True,max_length=30,help_text="Required")
+    lname = forms.CharField(required=True,max_length=30,help_text="Required")
+    password = forms.CharField(required=True,max_length=30,help_text="Required")
+    preferred_card_number = forms.CharField(required=True,max_length=30,help_text="Required")
+    preferred_billing_address = forms.CharField(required=True,max_length=30,help_text="Required")
+
+    class Meta:
+        model = Passengers

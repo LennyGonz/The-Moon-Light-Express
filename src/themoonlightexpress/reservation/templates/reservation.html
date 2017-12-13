@@ -1,5 +1,5 @@
 {% block content %}
-  <h2>Reservation</h2>
+  <h2>Select Route </h2>
   <form method="post">
     {% csrf_token %}
     {% for field in form %}
@@ -14,6 +14,6 @@
         {% endfor %}
       </p>
     {% endfor %}
-    <button type="submit">Reservation</button>
+    <button type="submit">look up available Trains</button>
   </form>
 {% endblock %}
