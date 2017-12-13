@@ -50,6 +50,15 @@ div.transbox p {
     color: #000000;
 }
 
+.divcenter {
+    margin: 0 auto;
+}
+
+.maintextbox {
+    width: 50%;
+    height: 50%;
+}
+
 
 /* END TEXT-BOX */
 
