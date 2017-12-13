@@ -6,5 +6,6 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 
 urlpatterns = [
-    url(r'^reservation/$', views.Look_up_trains, name='reservation'),
+    url(r'^$', views.reservations, name='reservation'),
+
 ]
