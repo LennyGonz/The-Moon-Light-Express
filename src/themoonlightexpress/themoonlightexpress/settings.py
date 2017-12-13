@@ -30,7 +30,6 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'displaydata',
-    'homepage',
     'reservation',
     'themoonlightexpressmain',
     'django.contrib.admin',
@@ -78,9 +77,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'railroad1',
-        'USER': 'root',
-        'PASSWORD': 'herick009',
-        'HOST': 'localhost',
+        'USER': 'lenny',
+        'PASSWORD': 'lenny',
+        'HOST': '35.224.16.194',
         'PORT': '',
     },
     'OPTIONS': {
