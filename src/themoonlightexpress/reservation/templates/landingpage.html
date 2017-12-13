@@ -1,22 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title> Moonlight Express </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" integrity="sha384-OHBBOqpYHNsIqQy8hL1U+8OXf9hH6QRxi0+EODezv82DfnZoV7qoHAZDwMwEJvSw" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/static/css/landing_page.css">
-
 </head>
 
 <body>
-    <!--
-    ====================== NAVBAR =====================    
+    <!-- 
+        ==========================================================================
+        ================================  NAV-BAR  ===============================
+        ==========================================================================
     -->
-    <!-- Image and text -->
     <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
         <div class="container">
             <a class="navbar-brand js-scroll-trigger" href="#" style="color:white">
@@ -25,43 +28,36 @@
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fa fa-bars"></i></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav mr-auto text-uppercase">
+                    <!--
                     <li class="nav-item active">
                         <a class="nav-link js-scroll-trigger" href="#" style="color:white">Reservations</a>
                     </li>
+                    -->
                     <li class="nav-item active">
-                        <a class="nav-link js-scroll-trigger" href="#" style="color:white"> Schedule </a>
+                        <a class="nav-link js-scroll-trigger" href="#" style="color:white">Display Data</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <!--
-    ==================== END-NAVBAR ====================    
+    <!-- 
+        ==========================================================================
+        ================================ FORM-BOX ================================
+        ==========================================================================
     -->
-
-    <!--
-    ====================== TEXT ======================
-    -->
-    <div class="background animated bounceInLeft">
+    <div class="background">
         <div class="transbox">
-<<<<<<< HEAD
-            <form action="">
-
-            </form>
-=======
-            <p>This is The moonlight Express.</p>
->>>>>>> d1b180bd793053bb2383b6a0db2e6d5f3e9c3b9a
+            {% block content %}
+            <div></div>
+            {% endblock %}
         </div>
     </div>
-    <!--
-    ==================== END-TEXT ====================
-    -->
-
     <!-- 
-    ==================== background ====================  
+        ==========================================================================
+        ================================ HOMEPAGE ================================
+        ==========================================================================
     -->
-    <!-- https://codepad.co/snippet/2783k8yG -->
-    <div>
+    <div class="wrapper">
         <div class="background"></div>
         <div class="rocks_1"></div>
         <div class="rocks_2"></div>
@@ -71,13 +67,6 @@
         <div class="lights"></div>
         <div class="moon"></div>
     </div>
-    <!-- 
-    ================== end-background ==================  
-    -->
-
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 </body>
 
 </html>

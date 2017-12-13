@@ -7,6 +7,7 @@ __pycache__/
 .idea
 .idea/*
 .vscode
+settings.py
 
 cloud_sql_proxy
 src/cloud_sql_proxy
