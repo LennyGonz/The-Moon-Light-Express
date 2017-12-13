@@ -1,19 +1,30 @@
+{% extends "landingpage.html" %}
+<p></p>
 {% block content %}
-  <h2>Reservation</h2>
-  <form method="post">
-    {% csrf_token %}
-    {% for field in form %}
-      <p>
-        {{ field.label_tag }}<br>
-        {{ field }}
+
+<h2 style="text-align">Reservation</h2>
+<div>
+    <form method="post">
+        {% csrf_token %}
+        <p></p>
+        {{ form.as_p }}
+        <p></p>
+        {% for field in form %}
+        <p> {{ field.label_tag }} </p>
+        <p> {{ field }} </p>
         {% if field.help_text %}
-          <small style="color: grey">{{ field.help_text }}</small>
+        <small style="color: grey">{{ field.help_text }}</small>
+        <p></p>
         {% endif %}
+        <p></p>
         {% for error in field.errors %}
-          <p style="color: red">{{ error }}</p>
+        <p style="color: red">{{ error }}</p>
         {% endfor %}
-      </p>
-    {% endfor %}
-    <button type="submit">Reservation</button>
-  </form>
+        </p>
+        {% endfor %}
+        <button type="submit">Reservation</button>
+    </form>
+</div>
+
+
 {% endblock %}
