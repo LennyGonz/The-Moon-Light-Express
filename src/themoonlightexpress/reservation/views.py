@@ -5,7 +5,7 @@ from .forms import *
 
 
 # Create your views here.
-def reservations(request):
+def reservations(request, methods=["GET","POST"]):
     if request.method == 'POST':
         form = ReservationsForms(request.POST)
         print(form)

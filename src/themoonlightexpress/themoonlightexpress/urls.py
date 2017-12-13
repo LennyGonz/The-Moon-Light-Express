@@ -19,9 +19,9 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 urlpatterns = [
-    #url(r'^admin/', admin.site.urls),
+    url(r'^admin/', admin.site.urls),
     url(r'^',include('reservation.urls')),
     #url(r'^search/', include('themoonlightexpressmain.urls')),
     #url(r'^reservations/', include('reservation.urls')),
-    url(r'^moonlightexpress/', include('reservation.urls')),
+    #url(r'^moonlightexpress/', include('reservation.urls')),
 ]

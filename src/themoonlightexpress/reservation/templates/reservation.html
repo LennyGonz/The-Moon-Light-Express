@@ -2,17 +2,20 @@
 <p></p>
 {% block content %}
 
-<h2 style="text-align">Reservation</h2>
+<h2 style="text-align:center">Reservation</h2>
 <div>
-    <form method="post">
+    <form class="maintextbox divcenter" method="POST">
         {% csrf_token %}
         <p></p>
-        {{ form.as_p }}
-        <p></p>
+
+        <!--
         {% for field in form %}
         <p> {{ field.label_tag }} </p>
         <p> {{ field }} </p>
-        {% if field.help_text %}
+        </p>
+        {% endfor %}
+        -->
+        {{ form.as_p }} {% if field.help_text %}
         <small style="color: grey">{{ field.help_text }}</small>
         <p></p>
         {% endif %}
@@ -20,11 +23,9 @@
         {% for error in field.errors %}
         <p style="color: red">{{ error }}</p>
         {% endfor %}
-        </p>
-        {% endfor %}
         <button type="submit">Reservation</button>
+
     </form>
 </div>
-
 
 {% endblock %}
