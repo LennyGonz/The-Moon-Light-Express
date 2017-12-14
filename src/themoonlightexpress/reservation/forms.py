@@ -5,9 +5,9 @@ from .models import *
 
 class ReservationsForms(forms.Form):
     # here we will get the option  for the resercation
-    station_station = forms.ModelChoiceField(queryset=Stations.objects.all())
+    start_station = forms.ModelChoiceField(queryset=Stations.objects.all())
     end_station = forms.ModelChoiceField(queryset=Stations.objects.all())
-    date = forms.DateField(help_text="month-day-year")
+    date = forms.DateField(help_text="year-month-day: examaple 2017-12-12")
 
 
 class PassengerForms(forms.Form):
