@@ -28,11 +28,9 @@ nav .navWide {
 
 /* TEXT BOX*/
 
-
-/* div.background {
+div.background {
     background: url(https://docs.google.com/uc?export=download&id=0B2PO2Lr7Bv2QSXhkaG1VaEhSTjA);
 }
-*/
 
 div.transbox {
     margin-left: auto !important;
@@ -100,7 +98,7 @@ img {
     height: 1080px;
     width: 1920px;
     position: relative;
-    background: url(https://docs.google.com/uc?export=download&id=0B2PO2Lr7Bv2QSXhkaG1VaEhSTjA);
+    /* background: url(https://docs.google.com/uc?export=download&id=0B2PO2Lr7Bv2QSXhkaG1VaEhSTjA); */
     background-repeat: repeat-x;
     background-position: top center;
     background-size: contain;
