@@ -48,8 +48,9 @@ def get_avail_trains_free_seats(train_id, segment_id, date):
     return train_id_list
 
 def get_time(train_id, location, destination):
-    mylist = []
+    my_bigger_list = []
     for i in range(0, len(train_id)):
+        mylist = []
         cursor.execute("SELECT time_out from stops_at WHERE train_id = %s and "
                        "station_id = %s", (train_id[i], location))
         row = cursor.fetchone()
@@ -58,7 +59,8 @@ def get_time(train_id, location, destination):
                        "station_id = %s", (train_id[i], destination))
         row = cursor.fetchone()
         mylist.append(str(row[0]))
-    return mylist
+        my_bigger_list.append(mylist)
+    return my_bigger_list
 
 #print(get_time([1,2,3,4,5],1,12))
 

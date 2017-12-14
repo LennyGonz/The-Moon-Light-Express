@@ -7,7 +7,6 @@ from src.themoonlightexpress.themoonlightexpressmain.adi_functions import *
 db = MySQLdb.connect("35.224.16.194","carlos","carlos","railroad1")
 cursor = db.cursor()
 
-
 #pre:user input location and destination
 #post: gets the station_id and symbol
 def getstaion(location, destination):
@@ -135,38 +134,40 @@ def ChoosingTrain(location,destination,date,faretype):
     listoftrain = trainsavible(northorsouth,day)
     trainstochoose = get_avail_trains_free_seats(listoftrain,segmentlist,date)
     time = get_time(trainstochoose,startid,endid)
-    fare = Totalfare(segmentlist,faretype)
+    fare = int(Totalfare(segmentlist,faretype))
     startseg = segmentlist[0]
     endseg = segmentlist[-1]
+    timeschedule = train_and_time(trainstochoose,startseg,endseg)
+    return fare,startseg,endseg,timeschedule
 
-    return fare,startseg,endseg
-    #print(trainstochoose)
-    #print(time)
-    #for train in trainstochoose:
-     #   for time in range(0,2):
+def train_and_time(train_id, location, destination):
+    bigger_train_id_and_time = []
+    my_bigger_list = get_time(train_id, location, destination)
+    for i in range(0, len(train_id)):
+        train_id_and_time = []
+        train_id_and_time.append(train_id[i])
+        train_id_and_time.append(my_bigger_list[i])
+        bigger_train_id_and_time.append(train_id_and_time)
+    return bigger_train_id_and_time
+
 
 def getid(fname):
     cursor.execute("""select passenger_id from passengers WHERE fname = %s""", [fname])
-    nameid = cursor.fetchone()
-    cursor.execute("""select reservation_id from reservations WHERE paying_passenger_id = %s""",[nameid])
-    reservationid = cursor.fetchone()
-    return nameid, reservationid
+    name = cursor.fetchone()
+    cursor.execute("""select reservation_id from reservations WHERE paying_passenger_id = %s""",[name])
+    reservation = cursor.fetchone()
+    return name[0], reservation[0]
 
 def Confirmation(train,fname,lname,email,cc,billing,date,fare,startseg,endseg,faretype):
     passenger(fname,lname,email,cc,billing)
     passid,reservationid =getid(fname)
     reservation(date,passid,cc,billing)
     trips(date,startseg,endseg,faretype,fare,train,reservationid)
+    
+print(ChoosingTrain('Boston, MA - South Station','Stamford, CT',"2018-01-12","adult"))
 
-
-
-
-
-
-
-print(ChoosingTrain('Boston, MA - South Station','Stamford, CT',"2018-01-12"))
-
-
+#print(getid("Toney"))
+#print(train_and_time([1,2,3,4],1,12))
 # print(schedule(2))
 #
 # #it works
