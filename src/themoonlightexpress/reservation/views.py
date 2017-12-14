@@ -7,7 +7,7 @@ from .carlos_functions_djago import *
 
 # Create your views here.
 # Create your views here.
-def TrainLookUpView(request,METHOD=['GET','POST']):
+def TrainLookUpView(request, METHOD=['GET', 'POST']):
     if request.method == 'POST':
         form = ReservationsForms(request.POST)
         trainslist = None
@@ -19,7 +19,7 @@ def TrainLookUpView(request,METHOD=['GET','POST']):
             trainsid = trainsavible(train_direction, day)
             trainslist = trainsid
             # return render(request, "displaytrain.html", resource)
-        return render(request,'listrains.html',{"trains":trainslist})
+        return render(request, 'listrains.html', {"trains": trainslist})
     else:
         form = ReservationsForms()
         return render(request, 'reservation.html', {'form': form})
@@ -27,7 +27,7 @@ def TrainLookUpView(request,METHOD=['GET','POST']):
 
 def PassengerView(request, METHOD=["GET", "POST"]):
     if request.method == 'POST':
-        #print(request.POST)
+        # print(request.POST)
         form = PassengerForms(request.POST)
         if form.is_valid():
             ## here we extract information to save the information
