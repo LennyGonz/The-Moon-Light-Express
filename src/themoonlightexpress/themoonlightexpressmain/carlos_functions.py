@@ -1,26 +1,27 @@
 # functions that will fetch the queries
-import MySQLdb
-import _mysql
+# import MySQLdb
+# import _mysql
 import datetime
 
 from src.themoonlightexpress.themoonlightexpressmain.adi_functions import *
 db = MySQLdb.connect("35.224.16.194","carlos","carlos","railroad1")
 cursor = db.cursor()
-
+from django.db import connection, transaction
 
 #pre:user input location and destination
 #post: gets the station_id and symbol
 def getstaion(location, destination):
-    cursor.execute("""select station_id from stations where station_name= %s""" , [location])
+    # get train_id, segment_id
+    cursor.execute("""select station_id from stations where station_name= %s""", [location])
     startid = cursor.fetchone()
-    cursor.execute("""select station_symbol from stations where station_name=%s""" , [location])
+    cursor.execute("""select station_symbol from stations where station_name=%s""", [location])
     startsymbol = cursor.fetchone()
-    cursor.execute("""select station_id from stations where station_name=%s""",[destination])
+    cursor.execute("""select station_id from stations where station_name=%s""", [destination])
     endid = cursor.fetchone()
-    cursor.execute("""select station_symbol from stations where station_name=%s""" , [destination])
+    cursor.execute("""select station_symbol from stations where station_name=%s""", [destination])
     endsymbol = cursor.fetchone()
-    start_values=[]
-    end_values=[]
+    start_values = []
+    end_values = []
     for row in startid, startsymbol:
         start_values.append(row[0])
     for row in endid, endsymbol:
@@ -29,8 +30,8 @@ def getstaion(location, destination):
 
 #pre:takes the station_id for both location
 #post: returns 0 for northbound, 1 for southbound
-def direction(startId,endId):
-    if(startId < endId):
+def direction(startId, endId):
+    if (startId < endId):
         return 1
     else:
         return 0
@@ -53,9 +54,9 @@ def MF(date1):
 
 #pre: give direction and day of the week
 #post: returns a list of train_id base on the direction and day
-def trainsavible(direction,day):
+def trainsavible(direction, day):
     train_id_list = []
-    cursor.execute("""select train_id from trains where train_days = %s and train_direction = %s""" , (day,direction))
+    cursor.execute("""select train_id from trains where train_days = %s and train_direction = %s""", (day, direction))
     data = cursor.fetchall()
     for row in data:
         train_id_list.append(row[0])
@@ -63,10 +64,10 @@ def trainsavible(direction,day):
 
 #pre:gets list of segments, and fare type
 #post: outputs the total fare
-def Totalfare(segid,type):
+def Totalfare(segid, type):
     fare = 0
     rate = 0
-    total= 0
+    total = 0
     for id in segid:
         cursor.execute("""select seg_fare from segments WHERE segment_id = %s""", [id])
         row = cursor.fetchone()
@@ -159,11 +160,6 @@ def Confirmation(train,fname,lname,email,cc,billing,date,fare,startseg,endseg,fa
     trips(date,startseg,endseg,faretype,fare,train,reservationid)
 
 
-
-
-
-
-
 print(ChoosingTrain('Boston, MA - South Station','Stamford, CT',"2018-01-12"))
 
 
@@ -178,3 +174,4 @@ print(ChoosingTrain('Boston, MA - South Station','Stamford, CT',"2018-01-12"))
 # #passenger("rohan","swaby","lol@gmail.com","1235","654325543","BRONX")
 cursor.close()
 db.close()
+

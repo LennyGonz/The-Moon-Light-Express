@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trains Available</title>
+</head>
+<body>
+    <table dir="ltr" width="500" border="1"
+            summary="purpose/structure for speech output">
+    <caption>List of Train available for your trip
+    </caption>
+    <colgroup width="60%" />
+    <colgroup id="colgroup" class="colgroup" align="center"
+            valign="middle" title="title" width="1*"
+            span="2" style="background:#ddd;" />
+    <thead>
+        <tr>
+            <th scope="col">Train</th>
+            <th scope="col">Departure time</th>
+            <th scope="col">Arival time</th>
+            <th scope="col">select schedule</th>
+        </tr>
+    </thead>
+    {% for ids in trains %}
+        <tbody>
+        <tr>
+            <td>{{ ids }}</td>
+            <td>9:30 am</td>
+            <td>10 am </td>
+            <td><button type="submit"> Book seat </button></td>
+        </tr>
+    </tbody>
+    {% endfor %}
+    </table>
+
+
+</body>
+</html>
+
+
+
