@@ -2,6 +2,8 @@
 import MySQLdb
 import _mysql
 import datetime
+
+from src.themoonlightexpress.themoonlightexpressmain.adi_functions import *
 db = MySQLdb.connect("35.224.16.194","carlos","carlos","railroad1")
 cursor = db.cursor()
 
@@ -42,11 +44,11 @@ def MF(date1):
     day = int(data[2])
     weekday=datetime.date(year,month,day).weekday()
     if(weekday== 5):
-        day =1
+        day =0
     elif(weekday == 6):
-        day =1
+        day =0
     else:
-        day=0
+        day=1
     return day
 
 #pre: give direction and day of the week
@@ -57,7 +59,6 @@ def trainsavible(direction,day):
     data = cursor.fetchall()
     for row in data:
         train_id_list.append(row[0])
-    #print(train_id_list)
     return train_id_list
 
 #pre:gets list of segments, and fare type
@@ -74,7 +75,6 @@ def Totalfare(segid,type):
     row1 = cursor.fetchone()
     rate = row1[0]
     total = rate + fare
-    #print(total)
     return total
 
 #pre:gets all of the information(comes from user)
@@ -86,10 +86,10 @@ def reservation(date,passengerid,card,billing):
     db.commit()
 #pre: gets all of the information
 #post:insert into table passenger
-def passenger(first,last,email,password,card,billing):
+def passenger(first,last,email,card,billing):
     cursor.execute("insert into passengers"
-                   "(fname, lname, email, password, preferred_card_number, preferred_billing_address)"
-                   "VALUES (%s,%s,%s,%s,%s,%s)", [first,last,email,password,card,billing])
+                   "(fname, lname, email, preferred_card_number, preferred_billing_address)"
+                   "VALUES (%s,%s,%s,%s,%s,%s)", [first,last,email,card,billing])
     db.commit()
 
 #pre: gets all information
@@ -115,14 +115,66 @@ def schedule(id):
             timeline.append(str(row[2]))
     return timeline
 
-cursor.close()
-db.close()
+#pre:put all function together
+#post:reservation process
+
+def ChoosingTrain(location,destination,date,faretype):
+    #variables
+    start =[]
+    end =[]
+    start,end = getstaion(location,destination)
+    startid = start[0]
+    startsym = start[1]
+    endid = end[0]
+    endsym = end[1]
+
+    #functions
+    northorsouth = direction(startid,endid)
+    segmentlist = get_segments(startid, endid)
+    day = MF(date)
+    listoftrain = trainsavible(northorsouth,day)
+    trainstochoose = get_avail_trains_free_seats(listoftrain,segmentlist,date)
+    time = get_time(trainstochoose,startid,endid)
+    fare = Totalfare(segmentlist,faretype)
+    startseg = segmentlist[0]
+    endseg = segmentlist[-1]
+
+    return fare,startseg,endseg
+    #print(trainstochoose)
+    #print(time)
+    #for train in trainstochoose:
+     #   for time in range(0,2):
+
+def getid(fname):
+    cursor.execute("""select passenger_id from passengers WHERE fname = %s""", [fname])
+    nameid = cursor.fetchone()
+    cursor.execute("""select reservation_id from reservations WHERE paying_passenger_id = %s""",[nameid])
+    reservationid = cursor.fetchone()
+    return nameid, reservationid
+
+def Confirmation(train,fname,lname,email,cc,billing,date,fare,startseg,endseg,faretype):
+    passenger(fname,lname,email,cc,billing)
+    passid,reservationid =getid(fname)
+    reservation(date,passid,cc,billing)
+    trips(date,startseg,endseg,faretype,fare,train,reservationid)
+
+
+
+
+
+
+
+print(ChoosingTrain('Boston, MA - South Station','Stamford, CT',"2018-01-12"))
+
+
 # print(schedule(2))
 #
 # #it works
 # print(getstaion('Boston, MA - South Station','Stamford, CT'))
-# print(trainsavible(0,1))
+#print(trainsavible(0,1))
 # print(MF("2017-12-12"))
 # print(Totalfare((1,2,3,4,5),"adult"))
 # #reservation("2017-2-13",1,"544765434546","NY")
 # #passenger("rohan","swaby","lol@gmail.com","1235","654325543","BRONX")
+cursor.close()
+db.close()
