@@ -7,10 +7,12 @@ from src.themoonlightexpress.themoonlightexpressmain.adi_functions import *
 db = MySQLdb.connect("35.224.16.194","carlos","carlos","railroad1")
 cursor = db.cursor()
 
+
 #pre:user input location and destination
 #post: gets the station_id and symbol
 def getstaion(location, destination):
-    cursor.execute("""select station_id from stations where station_name= %s""" , [location])
+    # get train_id, segment_id
+    cursor.execute("""select station_id from stations where station_name= %s""", [location])
     startid = cursor.fetchone()
     cursor.execute("""select station_symbol from stations where station_name=%s""" , [location])
     startsymbol = cursor.fetchone()
@@ -65,7 +67,7 @@ def trainsavible(direction,day):
 def Totalfare(segid,type):
     fare = 0
     rate = 0
-    total= 0
+    total = 0
     for id in segid:
         cursor.execute("""select seg_fare from segments WHERE segment_id = %s""", [id])
         row = cursor.fetchone()
@@ -163,11 +165,12 @@ def Confirmation(train,fname,lname,email,cc,billing,date,fare,startseg,endseg,fa
     passid,reservationid =getid(fname)
     reservation(date,passid,cc,billing)
     trips(date,startseg,endseg,faretype,fare,train,reservationid)
-    
+
 print(ChoosingTrain('Boston, MA - South Station','Stamford, CT',"2018-01-12","adult"))
 
-#print(getid("Toney"))
-#print(train_and_time([1,2,3,4],1,12))
+
+
+
 # print(schedule(2))
 #
 # #it works
@@ -179,3 +182,4 @@ print(ChoosingTrain('Boston, MA - South Station','Stamford, CT',"2018-01-12","ad
 # #passenger("rohan","swaby","lol@gmail.com","1235","654325543","BRONX")
 cursor.close()
 db.close()
+
