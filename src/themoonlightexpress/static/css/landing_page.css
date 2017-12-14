@@ -28,9 +28,11 @@ nav .navWide {
 
 /* TEXT BOX*/
 
-div.background {
+
+/* div.background {
     background: url(https://docs.google.com/uc?export=download&id=0B2PO2Lr7Bv2QSXhkaG1VaEhSTjA);
 }
+*/
 
 div.transbox {
     margin-left: auto !important;
@@ -59,6 +61,11 @@ div.transbox p {
     height: 50%;
 }
 
+input {
+    display: block;
+    margin: 0 auto;
+}
+
 
 /* END TEXT-BOX */
 
@@ -76,13 +83,10 @@ div {
     padding: 0 !important;
 }
 
-
-/*
 img {
     position: relative;
     width: 100%;
 }
-*/
 
 .wrapper {
     height: 1080px;
@@ -96,7 +100,7 @@ img {
     height: 1080px;
     width: 1920px;
     position: relative;
-    /* background: url(https://docs.google.com/uc?export=download&id=0B2PO2Lr7Bv2QSXhkaG1VaEhSTjA); */
+    background: url(https://docs.google.com/uc?export=download&id=0B2PO2Lr7Bv2QSXhkaG1VaEhSTjA);
     background-repeat: repeat-x;
     background-position: top center;
     background-size: contain;
@@ -178,9 +182,9 @@ img {
 
 .moon {
     position: absolute;
-    top: 20%;
-    height: 315px;
-    left: 200px;
+    top: 8%;
+    height: 300px;
+    left: 50px;
     width: 120px;
     background: url(https://docs.google.com/uc?export=download&id=0B2PO2Lr7Bv2QRTVYeVFoYVppeUU);
     background-repeat: no-repeat;
