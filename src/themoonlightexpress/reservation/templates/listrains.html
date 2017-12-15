@@ -21,10 +21,14 @@
         {% for ids, value in trains.items %}
         <tbody>
             <tr>
-                <td>{{ ids}}</td>
+                <td>{{ ids }}</td>
                 <td>{{ value.0 }}</td>
                 <td>{{ value.1}}</td>
-                <td><button type="submit"> Book seat </button></td>
+                <td>
+                <form action = "/completereservation" method="get">
+                <input type="button" value="Book Seat" onclick="window.location.href='/completereservation?train={{ids}}&departuretime={{value.0}}&arivaltime={{value.1}}'" />
+                </form>
+                </td>
             </tr>
         </tbody>
         {% endfor %}
