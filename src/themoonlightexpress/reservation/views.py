@@ -25,18 +25,20 @@ def TrainLookUpView(request, METHOD=['GET', 'POST']):
             for data in trainslist:
                 train_and_startime[data[0]] = data[1]
 
-            # return render(request, "displaytrain.html", resource)
         return render(request, 'listrains.html', {"trains": train_and_startime})
     else:
         form = ReservationsForms()
         return render(request, 'reservation.html', {'form': form})
 
 
-def PassengerView(request, METHOD=["GET", "POST"]):
+def reserve(request, METHOD=["GET", "POST"]):
     if request.method == 'POST':
-        # print(request.POST)
-        form = PassengerForms(request.POST)
+        form = reserveForm(request.POST)
+        print(request.POST)
         if form.is_valid():
-            ## here we extract information to save the information
-            ## to register this in passenger
             pass
+        return HttpResponse("This is your Trip")
+
+    else:
+        form = reserveForm(request.GET)
+        return render(request,"complete.html",{"form":form})
