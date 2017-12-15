@@ -8,7 +8,7 @@
 <p align="center">
   <a href="#description">Description</a> •
   <a href="#diagrams">Diagrams</a> •
-  <a href="#getting_started">Getting Started</a> •
+  <a href="#gettingstarted">Getting Started</a> •
   <a href="#deployment">Deployment</a> •
   <a href="#tools">Built With</a> •
   <a href="#railroadbuilders">Railroad Builders</a> •
@@ -30,12 +30,17 @@ Insert GIF here of working project
 </h1>
 
 ## Getting Started
+
 * turn on your computer
+
 ## Deployment
 
 ## Built With
+
 * [Django](https://www.djangoproject.com/) - Web framework 
+
 ## Railroad Builders
+
 * **Rohan Swaby** - [Rswaby](https://github.com/Rswaby)
 * **Lenny Gonzalez** - [LennyGonz](https://github.com/LennyGonz)
 * **Aditya Majithia** - [amajithia](https://github.com/amajithia)
