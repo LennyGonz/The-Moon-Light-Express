@@ -8,11 +8,11 @@
 <p align="center">
   <a href="#description">Description</a> •
   <a href="#diagrams">Diagrams</a> •
-  <a href="#gettingstarted">Getting Started</a> •
+  <a href="#getting-started">Getting Started</a> •
   <a href="#deployment">Deployment</a> •
-  <a href="#tools">Built With</a> •
-  <a href="#railroadbuilders">Railroad Builders</a> •
-  <a href="#acknowledgements">Acknowledgments</a>
+  <a href="#built-with">Built With</a> •
+  <a href="#railroad-builders">Railroad Builders</a> •
+  <a href="#acknowledgments">Acknowledgments</a>
 </p>
 
 ## Description
