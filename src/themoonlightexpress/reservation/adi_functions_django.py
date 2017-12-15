@@ -34,7 +34,8 @@ def get_avail_trains_free_seats(train_id, segment_id, date):
             cursor.execute("SELECT freeseat from seats_free where train_id = "
                            "%s and segment_id = %s and seat_free_date = %s", [train_id[i], segment_id[j], date])
             row = cursor.fetchone()
-            free_seats.append(row[0])
+            if row is not None:
+                free_seats.append(row[0])
             j += 1
         l = 0
         for k in range(0, len(free_seats)):
@@ -49,20 +50,21 @@ def get_avail_trains_free_seats(train_id, segment_id, date):
 
 
 def get_time(train_id, location, destination):
+    my_bigger_list = []
     for i in range(0, len(train_id)):
         mylist = []
-        cursor.execute("SELECT time_in, time_out from stops_at WHERE train_id = %s and "
+        cursor.execute("SELECT time_out from stops_at WHERE train_id = %s and "
                        "station_id = %s", (train_id[i], location))
         row = cursor.fetchone()
         mylist.append(str(row[0]))
-        mylist.append(str(row[1]))
-        cursor.execute("SELECT time_in, time_out from stops_at WHERE train_id = %s and "
+        cursor.execute("SELECT time_in from stops_at WHERE train_id = %s and "
                        "station_id = %s", (train_id[i], destination))
         row = cursor.fetchone()
+        print(row)
         mylist.append(str(row[0]))
-        mylist.append(str(row[1]))
-        print(mylist)
+        my_bigger_list.append(mylist)
+    return my_bigger_list
 
+    # print(get_time([1,2,3,4,5],1,12))
 
-cursor.close()
-db.close()
+    # print(get_avail_trains_free_seats([23,24,25,26,27,28],[1,2,3,4,5,6,7,8,9,10,11],'2018-01-13'))
