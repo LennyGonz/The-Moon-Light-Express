@@ -10,6 +10,8 @@ from .carlos_functions_djago import *
 def TrainLookUpView(request, METHOD=['GET', 'POST']):
     if request.method == 'POST':
         form = ReservationsForms(request.POST)
+        train_and_startime = {}
+        train_and_endtime = {}
         trainslist = None
         if form.is_valid():
             start = request.POST['start_station']
@@ -17,9 +19,14 @@ def TrainLookUpView(request, METHOD=['GET', 'POST']):
             train_direction = direction(start, end)
             day = MF(date1=request.POST['date'])
             trainsid = trainsavible(train_direction, day)
-            trainslist = trainsid
+            fake_fare_type = 'adult'
+            fare,startseg,endseg,trainslist = ChoosingTrain(location=start,destination=end,
+                                                            date=request.POST['date'],faretype=fake_fare_type)
+            for data in trainslist:
+                train_and_startime[data[0]] = data[1]
+
             # return render(request, "displaytrain.html", resource)
-        return render(request, 'listrains.html', {"trains": trainslist})
+        return render(request, 'listrains.html', {"trains": train_and_startime})
     else:
         form = ReservationsForms()
         return render(request, 'reservation.html', {'form': form})

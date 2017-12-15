@@ -1,5 +1,4 @@
 from django import forms
-from crispy_forms.helper import FormHelper
 from .models import *
 
 
@@ -8,6 +7,7 @@ class ReservationsForms(forms.Form):
     start_station = forms.ModelChoiceField(queryset=Stations.objects.all())
     end_station = forms.ModelChoiceField(queryset=Stations.objects.all())
     date = forms.DateField(help_text="year-month-day: examaple 2017-12-12")
+    fare_type = forms.ModelChoiceField(queryset=FareTypes.objects.all(),help_text="adult/child/senior")
 
 
 class PassengerForms(forms.Form):

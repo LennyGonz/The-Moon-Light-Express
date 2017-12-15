@@ -13,6 +13,9 @@ class FareTypes(models.Model):
     fare_name = models.CharField(max_length=20, blank=True, null=True)
     rate = models.DecimalField(max_digits=3, decimal_places=2, blank=True, null=True)
 
+    def __str__(self):
+        return str(self.fare_name)
+
     class Meta:
         managed = False
         db_table = 'fare_types'
@@ -26,7 +29,6 @@ class Passengers(models.Model):
     password = models.CharField(max_length=100, blank=True, null=True)
     preferred_card_number = models.CharField(max_length=16, blank=True, null=True)
     preferred_billing_address = models.CharField(max_length=100, blank=True, null=True)
-
 
     def __str__(self):
         return str(self.passenger_id)
@@ -108,10 +110,10 @@ class Trains(models.Model):
 
     def __str__(self):
         return str(self.train_id)
+
     class Meta:
         managed = False
         db_table = 'trains'
-
 
 
 class Trips(models.Model):
