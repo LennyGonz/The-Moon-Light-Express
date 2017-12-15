@@ -135,13 +135,14 @@ def ChoosingTrain(location,destination,date,faretype):
     day = MF(date)
     listoftrain = trainsavible(northorsouth,day)
     trainstochoose = get_avail_trains_free_seats(listoftrain,segmentlist,date)
-    time = get_time(trainstochoose,startid,endid)
     fare = int(Totalfare(segmentlist,faretype))
     startseg = segmentlist[0]
     endseg = segmentlist[-1]
     timeschedule = train_and_time(trainstochoose,startseg,endseg)
     return fare,startseg,endseg,timeschedule
 
+#pre:take a list of trainid, location, and destination
+#post: return a list containing the id for each train with it's departure and arrival time
 def train_and_time(train_id, location, destination):
     bigger_train_id_and_time = []
     my_bigger_list = get_time(train_id, location, destination)
@@ -152,7 +153,8 @@ def train_and_time(train_id, location, destination):
         bigger_train_id_and_time.append(train_id_and_time)
     return bigger_train_id_and_time
 
-
+#pre: takes first name
+#post: returns the passengerid and reservation id
 def getid(fname):
     cursor.execute("""select passenger_id from passengers WHERE fname = %s""", [fname])
     name = cursor.fetchone()
@@ -160,6 +162,8 @@ def getid(fname):
     reservation = cursor.fetchone()
     return name[0], reservation[0]
 
+#pre:takes all of the parameter
+#post: insert into the passenger,trips,and reservation table
 def Confirmation(train,fname,lname,email,cc,billing,date,fare,startseg,endseg,faretype):
     passenger(fname,lname,email,cc,billing)
     passid,reservationid =getid(fname)
@@ -167,8 +171,6 @@ def Confirmation(train,fname,lname,email,cc,billing,date,fare,startseg,endseg,fa
     trips(date,startseg,endseg,faretype,fare,train,reservationid)
 
 print(ChoosingTrain('Boston, MA - South Station','Stamford, CT',"2018-01-12","adult"))
-
-
 
 
 # print(schedule(2))
