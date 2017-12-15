@@ -28,8 +28,9 @@ Insert GIF here of working project
   <br>
   <a href="websitehere"><img src="https://raw.githubusercontent.com/Miguel75An/The-Moon-Light-Express/master/pic/Flow%20Chart%20Team8.png" alt="The Moonlight Express"></a>
 </h1>
+
 ## Getting Started
-turn on your computer
+* turn on your computer
 ## Deployment
 
 ## Built With
