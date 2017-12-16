@@ -1,5 +1,5 @@
-{% extends "landingpage.html" %} {% load crispy_forms_tags %}
-<p></p>
+<!--{% extends "landingpage.html" %} {% load crispy_forms_tags %}-->
+<!--<p></p>-->
 {% block content %}
 <div class="col-2"></div>
 <div class="col-8">
@@ -10,14 +10,6 @@
         <form class="maintextbox divcenter" action="" method="POST">
             {% csrf_token %}
             <p></p>
-
-            <!--
-                {% for field in form %}
-                <p> {{ field.label_tag }} </p>
-                <p> {{ field }} </p>
-                </p>
-                {% endfor %}
-            -->
             {{ form|crispy }} {% if field.help_text %}
             <small style="color: grey">{{ field.help_text }}</small>
             <p></p>
@@ -26,8 +18,8 @@
             {% for error in field.errors %}
             <p style="color: red">{{ error }}</p>
             {% endfor %}
-            <form action="" method="POST">
-                <input class="reservebutton" type="submit" name="reserve">
+            <form action="/" method="POST">
+                <input class="reservebutton" type="submit" name="reserve" value="Complete Reservation">
             </form>
         </form>
     </div>
