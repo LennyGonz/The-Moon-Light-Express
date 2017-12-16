@@ -45,6 +45,9 @@ class Reservations(models.Model):
     card_number = models.CharField(max_length=16, blank=True, null=True)
     billing_address = models.CharField(max_length=100, blank=True, null=True)
 
+    def __str__(self):
+        return str(self.reservation_id)
+
     class Meta:
         managed = False
         db_table = 'reservations'
@@ -70,6 +73,13 @@ class Segments(models.Model):
     seg_n_end = models.ForeignKey('Stations', models.DO_NOTHING, db_column='seg_n_end', related_name='seg_n_end')
     seg_s_end = models.ForeignKey('Stations', models.DO_NOTHING, db_column='seg_s_end', related_name='seg_s_end')
     seg_fare = models.DecimalField(max_digits=7, decimal_places=2)
+
+    def __str__(self):
+        if(self.seg_fare):
+            return str(self.seg_n_end)
+        else:
+            return str(self.seg_s_end)
+
 
     class Meta:
         managed = False
