@@ -10,7 +10,7 @@ __pycache__/
 settings.py
 
 cloud_sql_proxy
-src/cloud_sql_proxy
+app/cloud_sql_proxy
 
 # C extensions
 *.so

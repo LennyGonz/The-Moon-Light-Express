@@ -1,0 +1,200 @@
+/* NAVBAR STYLING */
+
+nav {
+    background: url(https://docs.google.com/uc?export=download&id=0B2PO2Lr7Bv2QSXhkaG1VaEhSTjA);
+}
+
+a {
+    color: white;
+}
+
+nav .navWide {
+    display: none;
+    margin: 0 auto;
+}
+
+@media (min-width: 480px) {
+    nav .navWide {
+        display: block;
+    }
+    nav .navNarrow {
+        display: none;
+    }
+}
+
+
+/* END-NAVBAR*/
+
+
+/* TEXT BOX*/
+
+div.background {
+    background: url(https://docs.google.com/uc?export=download&id=0B2PO2Lr7Bv2QSXhkaG1VaEhSTjA);
+}
+
+div.transbox {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 75%;
+    height: 378px;
+    background-color: #ffffff;
+    border: 5px solid black;
+    opacity: 0.6;
+    filter: alpha(opacity=60);
+}
+
+div.transbox p {
+    margin: 5%;
+    font-weight: bold;
+    text-align: center;
+    color: #000000;
+}
+
+.divcenter {
+    margin: 0 auto;
+}
+
+.maintextbox {
+    width: 50%;
+    height: 50%;
+}
+
+input {
+    display: block;
+    margin: 0 auto;
+}
+
+
+/* END TEXT-BOX */
+
+
+/* BACKGROUND STYLING */
+
+body {
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+div {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+img {
+    position: relative;
+    width: 100%;
+}
+
+.wrapper {
+    height: 1080px;
+    width: 1920px;
+    margin: auto;
+    background: #280744;
+    overflow: hidden !important;
+}
+
+.background {
+    height: 1080px;
+    width: 1920px;
+    position: relative;
+    /* background: url(https://docs.google.com/uc?export=download&id=0B2PO2Lr7Bv2QSXhkaG1VaEhSTjA); */
+    background-repeat: repeat-x;
+    background-position: top center;
+    background-size: contain;
+}
+
+
+/* ROCKS STYLING */
+
+.rocks_1 {
+    position: absolute;
+    bottom: -5px;
+    height: 315px;
+    width: 1920px;
+    background: url(https://docs.google.com/uc?export=download&id=0B2PO2Lr7Bv2QckJsSTBOSmdsYmc);
+    background-repeat: repeat-x;
+    background-position: top center;
+    background-size: contain;
+    animation: translateX 100s infinite linear both;
+}
+
+.rocks_2 {
+    position: absolute;
+    bottom: -60px;
+    height: 315px;
+    width: 1920px;
+    background: url(https://docs.google.com/uc?export=download&id=0B2PO2Lr7Bv2QSC1sYnVUWUxKSGs);
+    background-repeat: repeat-x;
+    background-position: top center;
+    background-size: contain;
+    animation: translateX 30s infinite linear both;
+}
+
+
+/* END OF ROCKS STYLING */
+
+.rails {
+    position: absolute;
+    bottom: -110px;
+    height: 315px;
+    width: 1920px;
+    background: url(https://docs.google.com/uc?export=download&id=0B2PO2Lr7Bv2QZmtCbjlIbjVwclk);
+    background-repeat: repeat-x;
+    background-position: top center;
+    background-size: contain;
+    animation: translateX 5s infinite linear both;
+}
+
+.train {
+    position: absolute;
+    bottom: -105px;
+    height: 315px;
+    width: 1500px;
+    right: 0px;
+    background: url(https://docs.google.com/uc?export=download&id=0B2PO2Lr7Bv2QandQOVZSTjBETGs);
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: contain;
+}
+
+.ground {
+    position: absolute;
+    width: 1920px;
+    height: 98px;
+    bottom: 0px;
+    background: #16012f;
+}
+
+.lights {
+    position: absolute;
+    bottom: -39px;
+    height: 315px;
+    width: 1920px;
+    background: url(https://docs.google.com/uc?export=download&id=0B2PO2Lr7Bv2QNTJ1U2M1eFptSTA);
+    background-repeat: repeat-x;
+    background-position: top center;
+    background-size: contain;
+    animation: translateX 4s infinite linear both;
+}
+
+.moon {
+    position: absolute;
+    top: 8%;
+    height: 300px;
+    left: 50px;
+    width: 120px;
+    background: url(https://docs.google.com/uc?export=download&id=0B2PO2Lr7Bv2QRTVYeVFoYVppeUU);
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: contain;
+}
+
+@keyframes translateX {
+    0% {
+        background-position: 0px 0px;
+    }
+    100% {
+        background-position: 1920px 0px;
+    }
+}

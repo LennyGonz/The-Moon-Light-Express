@@ -1,0 +1,37 @@
+{% extends "landingpage.html" %}
+<p></p>
+{% block train_list %}
+<p></p>
+{% block title %} Trains Available {% endblock %}
+<body>
+    <table dir="ltr" width="600" border="1" summary="purpose/structure for speech output">
+        <caption>List of Train available for your trip
+        </caption>
+        <colgroup width="60%" ></colgroup>
+
+        <colgroup id="colgroup" class="colgroup" align="center" valign="middle" title="title" width="1*" span="2" style="background:#ddd;" ></colgroup>
+        <thead>
+            <tr>
+                <th scope="col">Train</th>
+                <th scope="col">Departure Time</th>
+                <th scope="col">Arival Time</th>
+                <th scope="col">Select Schedule</th>
+            </tr>
+        </thead>
+        {% for ids, value in trains.items %}
+        <tbody>
+            <tr>
+                <td>{{ ids }}</td>
+                <td>{{ value.0 }}</td>
+                <td>{{ value.1}}</td>
+                <td>
+                <form action = "/completereservation" method="get">
+                <input type="button" value="Book Seat" onclick="window.location.href='/completereservation?train={{ids}}&departuretime={{value.0}}&arivaltime={{value.1}}'" />
+                </form>
+                </td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+</body>
+{% endblock %}
