@@ -106,15 +106,16 @@ def trips(date,startseg,endseg,type,fare,trainid,reservationid):
 #pre:give the train_id
 #post:return a list of schedule base on the train
 def schedule(id):
-    timeline=[]
-    for i in range(1,25):
-        cursor.execute("""select station_id,time_in, time_out from stops_at WHERE train_id = %s""", [id] )
-        row1 = cursor.fetchall()
-        for row in row1:
-            timeline.append(str(row[0]))
-            timeline.append(str(row[1]))
-            timeline.append(str(row[2]))
-    return timeline
+    list = []
+    cursor.execute("""select station_id,time_in, time_out from stops_at WHERE train_id = %s""", [id] )
+    row1 = cursor.fetchall()
+    for row in row1:
+         timeline=[]
+         timeline.append(str(row[0]))
+         timeline.append(str(row[1]))
+         timeline.append(str(row[2]))
+         list.append(timeline)
+    return list
 
 #pre:put all function together
 #post:reservation process
@@ -163,7 +164,7 @@ def getid(fname):
     return name[0], reservation[0]
 
 #pre:takes all of the parameter
-#post: insert into the passenger,trips,and reservation table
+#post: insert into the passenger,trips,and reservation table2
 def Confirmation(train,fname,lname,email,cc,billing,date,fare,startseg,endseg,faretype):
     passenger(fname,lname,email,cc,billing)
     passid,reservationid =getid(fname)
@@ -172,8 +173,7 @@ def Confirmation(train,fname,lname,email,cc,billing,date,fare,startseg,endseg,fa
 
 print(ChoosingTrain('Boston, MA - South Station','Stamford, CT',"2018-01-12","adult"))
 
-
-# print(schedule(2))
+#print(schedule(2))
 #
 # #it works
 # print(getstaion('Boston, MA - South Station','Stamford, CT'))
