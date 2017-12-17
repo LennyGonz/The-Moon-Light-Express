@@ -8,9 +8,10 @@ __pycache__/
 .idea/*
 .vscode
 settings.py
+.pyc
 
 cloud_sql_proxy
-src/cloud_sql_proxy
+app/cloud_sql_proxy
 
 # C extensions
 *.so
@@ -32,6 +33,7 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+*__pycache__/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template

@@ -1,0 +1,22 @@
+<!--{% extends "landingpage.html" %} {% load crispy_forms_tags %}-->
+<!--<p></p>-->
+{% block content %}
+<h1>Trip recipt</h1>
+
+
+<h2>Thank Your For purchasing</h2>
+
+  <p></p>
+  <ul>
+    <li><strong>Train:</strong> {{ trip.trip_train }}</li>
+    <li><strong>Reservation:</strong> {{ trip.reservation }}</li>
+    <li><strong>Fare type:</strong> {{ trip.fare_type }}</li>
+    <li><strong>fare:</strong> {{ trip.fare }}</li>
+    <li><strong>Start Station:</strong> {{ trip.trip_seg_start }}</li>
+    <li><strong>End Station:</strong> {{ trip.trip_seg_ends }}</li>
+    <li><strong>Trip Date:</strong> {{ trip.trip_date }}</li>
+    <li><strong>Departure time:</strong> {{ trip.departuretime }}</li>
+    <li><strong>Arival time:</strong> {{ trip.arivaltime }}</li>
+  </ul>
+
+{% endblock %}
