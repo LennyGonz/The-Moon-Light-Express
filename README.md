@@ -18,6 +18,11 @@
 ## Description
 CSc 33600 - Database Project: RailRoad System
 Insert GIF here of working project
+
+To  Run locally, you will need to open up a proxy 
+* In one terminal using the command: ./cloud_sql_proxy -instances=team8-railroad:us-central1:rail=tcp:3306
+* In a second terminal use the command: python manage.py runserver
+
 ## Diagrams
 <h1 align="center">
   <br>
