@@ -5,13 +5,12 @@ import datetime
 from django.db import connection, transaction
 from .adi_functions_django import *
 # db = MySQLdb.connect("35.224.16.194", "carlos", "carlos", "railroad1")
-cursor = connection.cursor()
-
 
 #pre:user input location and destination
 # post: gets the station_id and symbol
 def getstaion(location, destination):
     # get train_id, segment_id
+    cursor = connection.cursor()
     cursor.execute("""select station_id from stations where station_name= %s""", [location])
     startid = cursor.fetchone()
     cursor.execute("""select station_symbol from stations where station_name=%s""", [location])
@@ -28,6 +27,7 @@ def getstaion(location, destination):
     for row in endid, endsymbol:
         if row is not None:
             end_values.append(row[0])
+    cursor.close()
     return start_values, end_values
 
 
@@ -60,17 +60,20 @@ def MF(date1):
 # pre: give direction and day of the week
 # post: returns a list of train_id base on the direction and day
 def trainsavible(direction, day):
+    cursor = connection.cursor()
     train_id_list = []
     cursor.execute("""select train_id from trains where train_days = %s and train_direction = %s""", (day, direction))
     data = cursor.fetchall()
     for row in data:
         train_id_list.append(row[0])
+    cursor.close()
     return train_id_list
 
 
 # pre:gets list of segments, and fare type
 # post: outputs the total fare
 def Totalfare(segid, type):
+    cursor = connection.cursor()
     fare = 0
     rate = 0
     total = 0
@@ -82,34 +85,43 @@ def Totalfare(segid, type):
     row1 = cursor.fetchone()
     rate = row1[0]
     total = rate + fare
+    cursor.close()
     return total
 
 
 # pre:gets all of the information(comes from user)
 # post:insert into the table reservation
 def reservation(date, passengerid, card, billing):
+    cursor = connection.cursor()
     cursor.execute("insert into reservations"
                    "(reservation_date, paying_passenger_id, card_number, billing_address)"
                    "VALUES (%s,%s,%s,%s)", [date, passengerid, card, billing])
     transaction.commit()
+    cursor.close()
+
 
 
 # pre: gets all of the information
 # post:insert into table passenger
 def passenger(first, last, email, card, billing):
+    cursor = connection.cursor()
     cursor.execute("insert into passengers"
                    "(fname, lname, email, preferred_card_number, preferred_billing_address)"
                    "VALUES (%s,%s,%s,%s,%s,%s)", [first, last, email, card, billing])
     transaction.commit()
+    cursor.close()
+
 
 
 # pre: gets all information
 # post:insert in table trips
 def trips(date, startseg, endseg, type, fare, trainid, reservationid):
+    cursor = connection.cursor()
     cursor.execute("insert into trips"
                    "(trip_date, trip_seg_start, trip_seg_ends, fare_type, fare, trip_train_id, reservation_id)"
                    "VALUES (%s,%s,%s,%s,%s,%s,%s)", [date, startseg, endseg, type, fare, trainid, reservationid])
     transaction.commit()
+    cursor.close()
 
 
 # use function to grap the values from the return
@@ -118,6 +130,7 @@ def trips(date, startseg, endseg, type, fare, trainid, reservationid):
 # pre:give the train_id
 # post:return a list of schedule base on the train
 def schedule(id):
+    cursor = connection.cursor()
     timeline = []
     for i in range(1, 25):
         cursor.execute("""select station_id,time_in, time_out from stops_at WHERE train_id = %s""", [id])
@@ -126,6 +139,7 @@ def schedule(id):
             timeline.append(str(row[0]))
             timeline.append(str(row[1]))
             timeline.append(str(row[2]))
+    cursor.close()
     return timeline
 
 
@@ -167,10 +181,12 @@ def train_and_time(train_id, location, destination):
 
 
 def getid(fname):
+    cursor = connection.cursor()
     cursor.execute("""select passenger_id from passengers WHERE fname = %s""", [fname])
     name = cursor.fetchone()
     cursor.execute("""select reservation_id from reservations WHERE paying_passenger_id = %s""", [name])
     reservation = cursor.fetchone()
+    cursor.close()
     return name[0], reservation[0]
 
 

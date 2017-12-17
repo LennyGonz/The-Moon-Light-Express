@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class MoonlightexpressmainConfig(AppConfig):
-    name = 'moonlightexpressmain'
+class ThemoonlightexpressmainConfig(AppConfig):
+    name = 'themoonlightexpressmain'
