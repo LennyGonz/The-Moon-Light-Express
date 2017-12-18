@@ -4,6 +4,8 @@
 import datetime
 from django.db import connection, transaction
 from .adi_functions_django import *
+from app.themoonlightexpress.moonlightexpressmain.display_functions import *
+
 # db = MySQLdb.connect("35.224.16.194", "carlos", "carlos", "railroad1")
 
 #pre:user input location and destination
@@ -159,6 +161,12 @@ def ChoosingTrain(location, destination, date, faretype):
     segmentlist = get_segments(startid, endid)
     day = MF(date)
     listoftrain = trainsavible(northorsouth, day)
+    #If this breaks the form this is the new thing i added, this checks for trains that have seat,
+    #we pop the trainid that are full
+    for train in listoftrain:
+        yes = can_reserve(train,segmentlist,date)
+        if(yes != True):
+            listoftrain.remove(train)
     trainstochoose = get_avail_trains_free_seats(listoftrain, segmentlist, date)
     time = get_time(trainstochoose, startid, endid)
     fare = int(Totalfare(segmentlist, faretype))
@@ -195,6 +203,9 @@ def Confirmation(train, fname, lname, email, cc, billing, date, fare, startseg, 
     passid, reservationid = getid(fname)
     reservation(date, passid, cc, billing)
     trips(date, startseg, endseg, faretype, fare, train, reservationid)
+    #This is new too, couldnt test as a whole function but it works individually
+    segments = range(startseg, endseg + 1)
+    decrement_seats(train, segments, date)
 
 
 # fare,startseg,endseg,trainsche = ChoosingTrain('Boston, MA - South Station', 'Stamford, CT', "2018-01-12", "adult")

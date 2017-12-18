@@ -21,7 +21,7 @@ def get_pass_reservations(pass_id):
     return reservations
 
 
-def can_reserve(train_id, segment_id):
+def can_reserve(train_id, segment_id, date):
     """Check if there are available seats for that train and segment
             Parameters
             ----------
@@ -32,16 +32,24 @@ def can_reserve(train_id, segment_id):
             -------
             boolean for reservation (T or F)
             """
-    cursor.execute("""select freeseat from seats_free where train_id= %s and segment_id= %s""",
-                   [train_id, segment_id])  # query
-    available_seats = cursor.fetchone()  # fetch all reservations related to that passenger
-    print(available_seats)
-    if available_seats[0] == 448:
-        return False;
-    return True;
+    segments=[]
+    for seg in segment_id:
+        cursor.execute("""select freeseat from seats_free where train_id= %s and segment_id= %s and seat_free_date = %s""",
+                   [train_id, seg,date])  # query
+        available_seats = cursor.fetchone()  # fetch all reservations related to that passenger
+        segments.append(available_seats[0])
+    #print(segments)
+    for i in segments:
+        if i < 0:
+            return False
+        else:
+            return True
 
 
-def decrement_seats(train_id, segments):
+
+
+
+def decrement_seats(train_id, segments, date):
     """Decrease a seat for train_id for list of segments
                 Parameters
                 ----------
@@ -49,14 +57,14 @@ def decrement_seats(train_id, segments):
                 segments: list of segments id's
 
                 """
-    for segment in segments:
+    for seg in segments:
         # Probably will need date as well to update FreeSeats
         cursor.execute("""update seats_free set freeseat = freeseat - 1 
-                        where train_id = %s and segment_id = %s""", [train_id, segment])
+                        where train_id = %s and segment_id = %s and seat_free_date = %s""", [train_id, seg, date])
         db.commit()
 
 
-# print(get_pass_reservations(1))
-# print(can_reserve(1,1))
-print('IMHERE')
-# print(decrement_seats(1,[1,2])) #probably need the date as well
+#print(get_pass_reservations(1))
+#print(can_reserve(1,[1,2,3,4],"2017-12-13"))
+#print('IMHERE')
+#decrement_seats(1,[1,2,3,4],"2017-11-13") #probably need the date as well

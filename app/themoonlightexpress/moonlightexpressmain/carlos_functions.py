@@ -3,7 +3,9 @@ import MySQLdb
 import _mysql
 import datetime
 
-from src.themoonlightexpress.themoonlightexpressmain.adi_functions import *
+from app.themoonlightexpress.moonlightexpressmain.adi_functions import *
+from app.themoonlightexpress.moonlightexpressmain.display_functions import *
+
 
 db = MySQLdb.connect("35.224.16.194", "carlos", "carlos", "railroad1")
 cursor = db.cursor()
@@ -146,6 +148,10 @@ def ChoosingTrain(location, destination, date, faretype):
     segmentlist = get_segments(startid, endid)
     day = MF(date)
     listoftrain = trainsavible(northorsouth, day)
+    for train in listoftrain:
+        yes = can_reserve(train,segmentlist,date)
+        if(yes != True):
+            listoftrain.remove(train)
     trainstochoose = get_avail_trains_free_seats(listoftrain, segmentlist, date)
     fare = int(Totalfare(segmentlist, faretype))
     startseg = segmentlist[0]
@@ -184,9 +190,11 @@ def Confirmation(train, fname, lname, email, cc, billing, date, fare, startseg, 
     passid, reservationid = getid(fname)
     reservation(date, passid, cc, billing)
     trips(date, startseg, endseg, faretype, fare, train, reservationid)
+    segments = range(startseg,endseg+1)
+    decrement_seats(train,segments,date)
 
 
-print(ChoosingTrain('Boston, MA - South Station', 'Stamford, CT', "2018-01-12", "adult"))
+#print(ChoosingTrain('Boston, MA - South Station', 'Stamford, CT', "2018-01-12", "adult"))
 
 #
 # #it works
@@ -196,5 +204,7 @@ print(ChoosingTrain('Boston, MA - South Station', 'Stamford, CT', "2018-01-12", 
 # print(Totalfare((1,2,3,4,5),"adult"))
 # #reservation("2017-2-13",1,"544765434546","NY")
 # #passenger("rohan","swaby","lol@gmail.com","1235","654325543","BRONX")
+#Confirmation("1","mike","gonzales","mike@gmail.com","5432543523","Astoria","2017-11-13",95,"1","12","adult")
+
 cursor.close()
 db.close()
