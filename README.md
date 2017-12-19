@@ -46,11 +46,11 @@ To  Run locally, you will need to open up a proxy
 
 ## Railroad Builders
 
-* **Rohan Swaby** - [Rswaby](https://github.com/Rswaby)
 * **Lenny Gonzalez** - [LennyGonz](https://github.com/LennyGonz)
-* **Aditya Majithia** - [amajithia](https://github.com/amajithia)
+* **Rohan Swaby** - [Rswaby](https://github.com/Rswaby)
 * **Carlos Ng Sang** - [Cng000](https://github.com/Cng000)
 * **Miguel Dominguez** - [Miguel75An](https://github.com/Miguel75An)
+* **Aditya Majithia** - [amajithia](https://github.com/amajithia)
 
 ## Acknowledgments
 

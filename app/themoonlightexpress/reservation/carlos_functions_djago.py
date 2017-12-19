@@ -4,9 +4,7 @@
 import datetime
 from django.db import connection, transaction
 from .adi_functions_django import *
-from app.themoonlightexpress.moonlightexpressmain.display_functions import *
-
-# db = MySQLdb.connect("35.224.16.194", "carlos", "carlos", "railroad1")
+from .display_functions_dango import *
 
 #pre:user input location and destination
 # post: gets the station_id and symbol
