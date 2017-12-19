@@ -7,11 +7,9 @@ __pycache__/
 .idea
 .idea/*
 .vscode
-settings.py
 .pyc
 
-cloud_sql_proxy
-app/cloud_sql_proxy
+
 
 # C extensions
 *.so
