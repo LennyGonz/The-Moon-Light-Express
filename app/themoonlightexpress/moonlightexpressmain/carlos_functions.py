@@ -194,6 +194,20 @@ def Confirmation(train, fname, lname, email, cc, billing, date, fare, startseg, 
     decrement_seats(train,segments,date)
 
 
+def Cancellation(reservation_id):
+    cursor.execute("""delete from trips WHERE reservation_id = %s""",[reservation_id])
+    db.commit()
+    cursor.execute("""select paying_passenger_id from reservations WHERE reservation_id = %s""",[reservation_id])
+    passid = cursor.fetchone()
+    cursor.execute("""delete from reservations WHERE reservation_id = %s""",[reservation_id])
+    db.commit()
+    cursor.execute("""delete from passengers WHERE passenger_id = %s""",[passid[0]])
+    db.commit()
+
+
+
+#Cancellation(8)
+
 #print(ChoosingTrain('Boston, MA - South Station', 'Stamford, CT', "2018-01-12", "adult"))
 
 #
