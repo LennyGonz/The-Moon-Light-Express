@@ -147,6 +147,7 @@ def ChoosingTrain(location, destination, date, faretype):
     listoftrain = trainsavible(northorsouth, day)
     trainstochoose = get_avail_trains_free_seats(listoftrain, segmentlist, date)
     time = get_time(trainstochoose, startid, endid)
+    print("This is time",time)
     fare = int(Totalfare(segmentlist, faretype))
     print("segmentlist",segmentlist)
     startseg = segmentlist[0]

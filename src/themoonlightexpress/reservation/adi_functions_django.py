@@ -52,10 +52,12 @@ def get_avail_trains_free_seats(train_id, segment_id, date):
 def get_time(train_id, location, destination):
     my_bigger_list = []
     for i in range(0, len(train_id)):
+        print(train_id[i])
         mylist = []
         cursor.execute("SELECT time_out from stops_at WHERE train_id = %s and "
                        "station_id = %s", (train_id[i], location))
         row = cursor.fetchone()
+        print(row,location)
         mylist.append(str(row[0]))
         cursor.execute("SELECT time_in from stops_at WHERE train_id = %s and "
                        "station_id = %s", (train_id[i], destination))

@@ -7,6 +7,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 urlpatterns = [
     url(r'^$', views.TrainLookUpView, name='reservation'),
-    url(r'completereservation',views.reserve,name='reservation')
+    url(r'completereservation',views.reserve,name='reservation'),
+    url(r'getreservation',views.search_resersation,name='searchreservation'),
+    url(r'cancel',views.deletereservation,name='cancel')
 
 ]
