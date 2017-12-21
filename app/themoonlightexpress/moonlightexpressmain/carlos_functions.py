@@ -36,9 +36,9 @@ def getstaion(location, destination):
 # post: returns 0 for northbound, 1 for southbound
 def direction(startId, endId):
     if (startId < endId):
-        return 1
-    else:
         return 0
+    else:
+        return 1
 
 
 # pre:takes a date in format year-month-day
@@ -152,12 +152,50 @@ def ChoosingTrain(location, destination, date, faretype):
         yes = can_reserve(train,segmentlist,date)
         if(yes != True):
             listoftrain.remove(train)
+    i = [2, 4, 5, 10, 12, 13]
+    for x in i:
+        if x in listoftrain:
+            listoftrain.remove(x)
     trainstochoose = get_avail_trains_free_seats(listoftrain, segmentlist, date)
     fare = int(Totalfare(segmentlist, faretype))
-    startseg = segmentlist[0]
-    endseg = segmentlist[-1]
+    startseg = startid
+    endseg = endid
     timeschedule = train_and_time(trainstochoose, startseg, endseg)
     return fare, startseg, endseg, timeschedule
+
+
+def expressTrain(location, destination, date, faretype):
+    # variables
+    start = []
+    end = []
+    start, end = getstaion(location, destination)
+    startid = start[0]
+    startsym = start[1]
+    endid = end[0]
+    endsym = end[1]
+
+    # functions
+    northorsouth = direction(startid, endid)
+    segmentlist = get_segments(startid, endid)
+    day = MF(date)
+    listoftrain = trainsavible(northorsouth, day)
+    for train in listoftrain:
+        yes = can_reserve(train,segmentlist,date)
+        if(yes != True):
+            listoftrain.remove(train)
+    i = [1, 3, 6, 7, 8, 9,11,14, 15, 16, 17,18, 19,20,21, 22, 23, 24, 25, 26, 27, 28]
+    for x in i:
+        if x in listoftrain:
+            listoftrain.remove(x)
+    trainstochoose = get_avail_trains_free_seats(listoftrain, segmentlist, date)
+    fare = int(Totalfare(segmentlist, faretype))
+    fare = (fare * 1.02) + fare
+    fare = float("{:.2f}".format(fare))
+    startseg = startid
+    endseg = endid
+    timeschedule = train_and_time(trainstochoose, startseg, endseg)
+    return fare, startseg, endseg, timeschedule
+
 
 
 # pre:take a list of trainid, location, and destination
@@ -208,7 +246,9 @@ def Cancellation(reservation_id):
 
 #Cancellation(8)
 
-#print(ChoosingTrain('Boston, MA - South Station', 'Stamford, CT', "2018-01-12", "adult"))
+print(ChoosingTrain('Boston, MA - South Station','New Rochelle, NY', "2018-01-10", "adult"))
+print(expressTrain('Boston, MA - South Station','New Rochelle, NY', "2018-01-10", "adult"))
+
 
 #
 # #it works
