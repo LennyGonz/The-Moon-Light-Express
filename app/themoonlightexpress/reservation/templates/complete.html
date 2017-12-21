@@ -1,29 +1,79 @@
-{% extends "landingpage.html" %} {% load crispy_forms_tags %}-->
-<p></p>
-{% block content %}
-<div class="col-2"></div>
-<div class="col-8">
-    {% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
 
-    <h2 style="text-align:center; padding-top:9px;">Reservation</h2>
-    <div>
-        <form class="maintextbox divcenter" action="" method="POST">
-            {% csrf_token %}
-            <p></p>
-            {{ form|crispy }} {% if field.help_text %}
-            <small style="color: grey">{{ field.help_text }}</small>
-            <p></p>
-            {% endif %}
-            <p></p>
-            {% for error in field.errors %}
-            <p style="color: red">{{ error }}</p>
-            {% endfor %}
-            <form action="/" method="POST">
-                <input class="reservebutton" type="submit" name="reserve" value="Complete Reservation">
-            </form>
-        </form>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %} Reservation Form {% endblock %}</title>
+    <link rel="icon" href="/static/img/train_icon.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" integrity="sha384-OHBBOqpYHNsIqQy8hL1U+8OXf9hH6QRxi0+EODezv82DfnZoV7qoHAZDwMwEJvSw" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/forms.css">
+
+</head>
+
+<body>
+    <!-- ===========================================================
+         ========================= NAV BAR =========================
+         ===========================================================
+    -->
+    <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="/" style="color:white">
+                <!-- <img src="/static/img/train_icon.svg" alt="logo" width="30" height="30" style="color:white"> -->The Moonlight Express
+            </a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"> Menu <i class="fa fa-bars"></i></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav mr-auto text-uppercase">
+
+                    <li class="nav-item active">
+                        <a class="nav-link js-scroll-trigger" href="#" style="color:white">Reservations</a>
+                    </li>
+
+                    <li class="nav-item active">
+                        <a class="nav-link js-scroll-trigger" href="#" style="color:white">Display Data</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===========================================================
+         ========================= NAV BAR =========================
+         ===========================================================
+    -->
+    <h1>{{fare}}</h1>
+    {% block content %}
+    <div class="stars" style="height: 1905px;">
+        <div class="twinkling" style="height: 1905px;">
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-8 transbox maintextbox">
+                    {% load crispy_forms_tags %}
+                    <h2 style="text-align:center !important; padding-top:9px;">Reservation</h2>
+                    <div class="">
+                        <form class="reservationform maintextbox divcenter" method="POST">
+                            {% csrf_token %}
+                            <div class="formcontainer">
+                                {{ form|crispy }}
+                            </div>
+                            <form action="/" method="POST">
+                                <input class="reservebutton" type="submit" name="reserve" value="Complete Reservation">
+                            </form>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-2"></div>
+            </div>
+        </div>
     </div>
-</div>
-<div class="col-3"></div>
+    {% endblock %}
 
-{% endblock %}
+</body>
+
+
+</html>

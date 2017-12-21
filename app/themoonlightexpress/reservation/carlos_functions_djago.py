@@ -1,3 +1,4 @@
+
 # functions that will fetch the queries
 # import MySQLdb
 # import _mysql
@@ -165,6 +166,10 @@ def ChoosingTrain(location, destination, date, faretype):
         yes = can_reserve(train,segmentlist,date)
         if(yes != True):
             listoftrain.remove(train)
+    i = [2, 4, 5, 10, 12, 13]
+    for x in i:
+        if x in listoftrain:
+            listoftrain.remove(x)
     trainstochoose = get_avail_trains_free_seats(listoftrain, segmentlist, date)
     time = get_time(trainstochoose, startid, endid)
     fare = int(Totalfare(segmentlist, faretype))
@@ -174,6 +179,37 @@ def ChoosingTrain(location, destination, date, faretype):
     timeschedule = train_and_time(trainstochoose, startseg, endseg)
     return fare, startseg, endseg, timeschedule
 
+def expressTrain(location, destination, date, faretype):
+    # variables
+    start = []
+    end = []
+    start, end = getstaion(location, destination)
+    startid = start[0]
+    startsym = start[1]
+    endid = end[0]
+    endsym = end[1]
+
+    # functions
+    northorsouth = direction(startid, endid)
+    segmentlist = get_segments(startid, endid)
+    day = MF(date)
+    listoftrain = trainsavible(northorsouth, day)
+    for train in listoftrain:
+        yes = can_reserve(train,segmentlist,date)
+        if(yes != True):
+            listoftrain.remove(train)
+    i = [1, 3, 6, 7, 8, 9,11,14, 15, 16, 17,18, 19,20,21, 22, 23, 24, 25, 26, 27, 28]
+    for x in i:
+        if x in listoftrain:
+            listoftrain.remove(x)
+    trainstochoose = get_avail_trains_free_seats(listoftrain, segmentlist, date)
+    fare = int(Totalfare(segmentlist, faretype))
+    fare = (fare * 1.02) + fare
+    fare = float("{:.2f}".format(fare))
+    startseg = startid
+    endseg = endid
+    timeschedule = train_and_time(trainstochoose, startseg, endseg)
+    return fare, startseg, endseg, timeschedule
 
 def train_and_time(train_id, location, destination):
     bigger_train_id_and_time = []
@@ -205,6 +241,17 @@ def Confirmation(train, fname, lname, email, cc, billing, date, fare, startseg, 
     segments = range(startseg, endseg + 1)
     decrement_seats(train, segments, date)
 
+def Cancellation(reservation_id):
+    cursor = connection.cursor()
+    cursor.execute("""delete from trips WHERE reservation_id = %s""",[reservation_id])
+    transaction.commit()
+    cursor.execute("""select paying_passenger_id from reservations WHERE reservation_id = %s""",[reservation_id])
+    passid = cursor.fetchone()
+    cursor.execute("""delete from reservations WHERE reservation_id = %s""",[reservation_id])
+    transaction.commit()
+    cursor.execute("""delete from passengers WHERE passenger_id = %s""",[passid[0]])
+    transaction.commit()
+    cursor.close()
 
 # fare,startseg,endseg,trainsche = ChoosingTrain('Boston, MA - South Station', 'Stamford, CT', "2018-01-12", "adult")
 # print(trainsche)
