@@ -1,4 +1,3 @@
-
 # functions that will fetch the queries
 # import MySQLdb
 # import _mysql
@@ -7,7 +6,8 @@ from django.db import connection, transaction
 from .adi_functions_django import *
 from .display_functions_dango import *
 
-#pre:user input location and destination
+
+# pre:user input location and destination
 # post: gets the station_id and symbol
 def getstaion(location, destination):
     # get train_id, segment_id
@@ -101,7 +101,6 @@ def reservation(date, passengerid, card, billing):
     cursor.close()
 
 
-
 # pre: gets all of the information
 # post:insert into table passenger
 def passenger(first, last, email, card, billing):
@@ -111,7 +110,6 @@ def passenger(first, last, email, card, billing):
                    "VALUES (%s,%s,%s,%s,%s,%s)", [first, last, email, card, billing])
     transaction.commit()
     cursor.close()
-
 
 
 # pre: gets all information
@@ -151,7 +149,7 @@ def ChoosingTrain(location, destination, date, faretype):
     # variables
     start = []
     end = []
-    #start, end = getstaion(location, destination)
+    # start, end = getstaion(location, destination)
     startid = int(location)
     endid = int(destination)
 
@@ -160,11 +158,11 @@ def ChoosingTrain(location, destination, date, faretype):
     segmentlist = get_segments(startid, endid)
     day = MF(date)
     listoftrain = trainsavible(northorsouth, day)
-    #If this breaks the form this is the new thing i added, this checks for trains that have seat,
-    #we pop the trainid that are full
+    # If this breaks the form this is the new thing i added, this checks for trains that have seat,
+    # we pop the trainid that are full
     for train in listoftrain:
-        yes = can_reserve(train,segmentlist,date)
-        if(yes != True):
+        yes = can_reserve(train, segmentlist, date)
+        if (yes != True):
             listoftrain.remove(train)
     i = [2, 4, 5, 10, 12, 13]
     for x in i:
@@ -173,7 +171,7 @@ def ChoosingTrain(location, destination, date, faretype):
     trainstochoose = get_avail_trains_free_seats(listoftrain, segmentlist, date)
     time = get_time(trainstochoose, startid, endid)
     fare = int(Totalfare(segmentlist, faretype))
-    print("segmentlist",segmentlist)
+    print("segmentlist", segmentlist)
     startseg = segmentlist[0]
     endseg = segmentlist[-1]
     timeschedule = train_and_time(trainstochoose, startseg, endseg)
@@ -181,26 +179,26 @@ def ChoosingTrain(location, destination, date, faretype):
 
 #pre:takes two express pair
 #post: returns the schedule for those two staions
+
 def expressTrain(location, destination, date, faretype):
     # variables
     start = []
     end = []
-    start, end = getstaion(location, destination)
-    startid = start[0]
-    startsym = start[1]
-    endid = end[0]
-    endsym = end[1]
+    startid = int(location)
+    endid = int(destination)
 
     # functions
     northorsouth = direction(startid, endid)
     segmentlist = get_segments(startid, endid)
     day = MF(date)
     listoftrain = trainsavible(northorsouth, day)
+    print(listoftrain)
     for train in listoftrain:
         yes = can_reserve(train, segmentlist, date)
         if (yes != True):
             listoftrain.remove(train)
     i = [1, 3, 6, 7, 8, 9, 11, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28]
+
     message = "No express trains"
     for x in i:
         if x in listoftrain:
@@ -224,6 +222,8 @@ def expressTrain(location, destination, date, faretype):
         endseg = endid
         timeschedule = train_and_time(trainstochoose, startseg, endseg)
         return fare, startseg, endseg, timeschedule
+
+
 
 def train_and_time(train_id, location, destination):
     bigger_train_id_and_time = []
@@ -251,12 +251,14 @@ def Confirmation(train, fname, lname, email, cc, billing, date, fare, startseg, 
     passid, reservationid = getid(fname)
     reservation(date, passid, cc, billing)
     trips(date, startseg, endseg, faretype, fare, train, reservationid)
-    #This is new too, couldnt test as a whole function but it works individually
+    # This is new too, couldnt test as a whole function but it works individually
     segments = range(startseg, endseg + 1)
     decrement_seats(train, segments, date)
 
+
 def Cancellation(reservation_id):
     cursor = connection.cursor()
+
     cursor.execute("""select trip_date from trips WHERE  reservation_id = %s""", [reservation_id])
     date = cursor.fetchone()
     cursor.execute("""select trip_seg_start from trips WHERE  reservation_id = %s""", [reservation_id])
@@ -266,15 +268,17 @@ def Cancellation(reservation_id):
     cursor.execute("""select trip_train_id from trips WHERE  reservation_id = %s""", [reservation_id])
     id = cursor.fetchone()
     cursor.execute("""delete from trips WHERE reservation_id = %s""",[reservation_id])
+
     transaction.commit()
-    cursor.execute("""select paying_passenger_id from reservations WHERE reservation_id = %s""",[reservation_id])
+    cursor.execute("""select paying_passenger_id from reservations WHERE reservation_id = %s""", [reservation_id])
     passid = cursor.fetchone()
-    cursor.execute("""delete from reservations WHERE reservation_id = %s""",[reservation_id])
+    cursor.execute("""delete from reservations WHERE reservation_id = %s""", [reservation_id])
     transaction.commit()
-    cursor.execute("""delete from passengers WHERE passenger_id = %s""",[passid[0]])
+    cursor.execute("""delete from passengers WHERE passenger_id = %s""", [passid[0]])
     transaction.commit()
     updateseat(id[0],date[0],start[0],end[0])
     cursor.close()
+
 
 def updateseat(trainid,date,start,end):
     cursor = connection.cursor()
@@ -297,3 +301,4 @@ def updateseat(trainid,date,start,end):
 # print(Totalfare((1,2,3,4,5),"adult"))
 # #reservation("2017-2-13",1,"544765434546","NY")
 ##passenger("rohan","swaby","lol@gmail.com","1235","654325543","BRONX")
+

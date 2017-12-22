@@ -8,7 +8,7 @@
 <body>
     <div>
         <div>
-            <h4 style="text-align:center"> Trains Available for <em> {{start}} </em> to <em> {{end}}</em> on <em> {{date}} </em> <em> For $</em> <em>{{fare_A}}</em> </h4>
+            <h4 style="text-align:center"> No Trains available for <em> {{start}} </em> to <em> {{end}}</em> on <em> {{date}} </em></h4>
             <table dir="ltr" border="1" summary="purpose/structure for speech output" style="margin: 0 auto">
                 <caption style="text-align:center">List of Trains available for your trip</caption>
                 <colgroup width="60%"></colgroup>
@@ -29,14 +29,14 @@
                         <td>{{ value.0 }}</td>
                         <td>{{ value.1}}</td>
                         <td>
-                            <form action="/completereservation" method="get">
-                                <input type="button" value="Book Seat" onclick="window.location.href='/completereservation?train={{ids}}&departuretime={{value.0}}&arivaltime={{value.1}}&start_station={{start}}&end_station={{end}}&trip_date={{date}}&fare={{fare_A}}'" />
-                            </form>
                         </td>
                     </tr>
                 </tbody>
                 {% endfor %}
             </table>
+            <form action="/completereservation" method="get">
+                <input type="button" value="Try Local stops" onclick="window.location.href='/'" />
+            </form>
         </div>
     </div>
 
