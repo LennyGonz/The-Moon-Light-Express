@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from .forms import *
 from .carlos_functions_djago import *
@@ -29,6 +28,7 @@ def TrainLookUpView(request, METHOD=['GET', 'POST']):
             fake_fare_type = 'adult'
             fare, startseg, endseg, trainslist = ChoosingTrain(location=start, destination=end,
                                                                date=request.POST['date'], faretype=fake_fare_type)
+
             for data in trainslist:
                 train_and_startime[data[0]] = data[1]
             start_station = Stations.objects.get(station_id=start)
@@ -58,10 +58,14 @@ def reserve(request, METHOD=["GET", "POST"]):
                 "preferred_billing_address": request.POST['preferred_card_number']
             }
             Passengers.objects.create(**passengerInfo)
+            try:
+                _passenger = Passengers.objects.get(email=request.POST['email'])
+            except Exception:
+                return HttpResponse("our records show this already exits. go back and change email address to proceed")
 
             reservationInfo = {
                 "reservation_date": datetime.datetime.today().strftime('%Y-%m-%d'),
-                "paying_passenger": Passengers.objects.get(email=request.POST['email']),
+                "paying_passenger": _passenger,
                 "card_number": request.POST['preferred_card_number'],
                 "billing_address": request.POST['preferred_billing_address']
             }
@@ -140,30 +144,40 @@ def expressReservationViewSet(request, MeTHOD=["GET", "POST"]):
 
         print(request.POST['start_station'])
 
-        # if form.is_valid():
-        #     start = request.POST['start_station']
-        #     end = request.POST['end_station']
-        #
-        #     # if request.POST['date'] < datetime.datetime.today():
-        #     #     return HttpResponse("This date is Not Valid please Choose a date in the future")
-        #     train_direction = direction(start, end)
-        #     day = MF(date1=request.POST['date'])
-        #     trainsid = trainsavible(train_direction, day)
-        #     fake_fare_type = 'adult'
-        #     fare, startseg, endseg, trainslist = ChoosingTrain(location=start, destination=end,
-        #                                                        date=request.POST['date'], faretype=fake_fare_type)
-        #     for data in trainslist:
-        #         train_and_startime[data[0]] = data[1]
-        #     start_station = Stations.objects.get(station_id=start)
-        #     end_station = Stations.objects.get(station_id=end)
-        #     date = request.POST['date']
-        #
-        # return render(request, 'listrains.html', {"trains": train_and_startime,
-        #                                           "start": start_station,
-        #                                           "end": end_station,
-        #                                           "date": date,
-        #                                           "fare_A": fare})
-        return HttpResponse("That worked!!")
+        if form.is_valid():
+            start = request.POST['start_station']
+            end = request.POST['end_station']
+
+            # if request.POST['date'] < datetime.datetime.today():
+            #     return HttpResponse("This date is Not Valid please Choose a date in the future")
+            train_direction = direction(start, end)
+            day = MF(date1=request.POST['date'])
+            trainsid = trainsavible(train_direction, day)
+            fake_fare_type = 'adult'
+            fare, startseg, endseg, trainslist = expressTrain(location=start, destination=end,
+                                                              date=request.POST['date'], faretype=fake_fare_type)
+            print(len(trainslist))
+            if len(trainslist) < 1:
+                start_station = Stations.objects.get(station_id=start)
+                end_station = Stations.objects.get(station_id=end)
+                date = request.POST['date']
+
+                return render(request, "noTrainsAvailable.html", {"trains": train_and_startime,
+                                                                  "start": start_station,
+                                                                  "end": end_station,
+                                                                  "date": date,
+                                                                  "fare_A": fare})
+            for data in trainslist:
+                train_and_startime[data[0]] = data[1]
+            start_station = Stations.objects.get(station_id=start)
+            end_station = Stations.objects.get(station_id=end)
+            date = request.POST['date']
+
+        return render(request, 'listrains.html', {"trains": train_and_startime,
+                                                  "start": start_station,
+                                                  "end": end_station,
+                                                  "date": date,
+                                                  "fare_A": fare})
     else:
         form = ExtressReservationForm()
-        return render(request, "expressreservationform.html", {"form":form})
+        return render(request, "expressreservationform.html", {"form": form})

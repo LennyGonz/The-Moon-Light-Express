@@ -1,15 +1,9 @@
-<!-- {% extends "landingpage.html" %}
-<P></P>
-{% load crispy_forms_tags %} -->
-<!--<p></p>-->
+{% block title %} Thank Your For purchasing {% endblock %}
+
 {% block content %}
-<h1>Trip recipt</h1>
 
-
-<h2>Thank Your For purchasing</h2>
-
-<p></p>
-<ul>
+<h1>Trip recipt: save reservation to view/canel</h1>
+<lu>
     <li><strong>Train:</strong> {{ trip.trip_train }}</li>
     <li><strong>Reservation:</strong> {{ trip.reservation }}</li>
     <li><strong>Fare type:</strong> {{ trip.fare_type }}</li>
@@ -19,6 +13,9 @@
     <li><strong>Trip Date:</strong> {{ trip.trip_date }}</li>
     <li><strong>Departure time:</strong> {{ trip.departuretime }}</li>
     <li><strong>Arival time:</strong> {{ trip.arivaltime }}</li>
-</ul>
+</lu>
+<form action = "" method="get">
+         <input type="button" value="home " onclick="window.location.href='/'" />
+</form>
 
 {% endblock %}
