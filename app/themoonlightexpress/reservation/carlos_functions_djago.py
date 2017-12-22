@@ -179,6 +179,8 @@ def ChoosingTrain(location, destination, date, faretype):
     timeschedule = train_and_time(trainstochoose, startseg, endseg)
     return fare, startseg, endseg, timeschedule
 
+#pre:takes two express pair
+#post: returns the schedule for those two staions
 def expressTrain(location, destination, date, faretype):
     # variables
     start = []
@@ -195,21 +197,33 @@ def expressTrain(location, destination, date, faretype):
     day = MF(date)
     listoftrain = trainsavible(northorsouth, day)
     for train in listoftrain:
-        yes = can_reserve(train,segmentlist,date)
-        if(yes != True):
+        yes = can_reserve(train, segmentlist, date)
+        if (yes != True):
             listoftrain.remove(train)
-    i = [1, 3, 6, 7, 8, 9,11,14, 15, 16, 17,18, 19,20,21, 22, 23, 24, 25, 26, 27, 28]
+    i = [1, 3, 6, 7, 8, 9, 11, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28]
+    message = "No express trains"
     for x in i:
         if x in listoftrain:
             listoftrain.remove(x)
-    trainstochoose = get_avail_trains_free_seats(listoftrain, segmentlist, date)
-    fare = int(Totalfare(segmentlist, faretype))
-    fare = (fare * 1.02) + fare
-    fare = float("{:.2f}".format(fare))
-    startseg = startid
-    endseg = endid
-    timeschedule = train_and_time(trainstochoose, startseg, endseg)
-    return fare, startseg, endseg, timeschedule
+    remove = []
+    for trains in listoftrain:
+        cursor.execute("""select station_id from stops_at WHERE train_id = %s""", [trains])
+        row = cursor.fetchall()
+        for i in row:
+            remove.append(i[0])
+        if endid not in remove:
+            listoftrain.remove(trains)
+    if len(listoftrain) == 0:
+        return message
+    else:
+        trainstochoose = get_avail_trains_free_seats(listoftrain, segmentlist, date)
+        fare = int(Totalfare(segmentlist, faretype))
+        fare = (fare * 1.02) + fare
+        fare = float("{:.2f}".format(fare))
+        startseg = startid
+        endseg = endid
+        timeschedule = train_and_time(trainstochoose, startseg, endseg)
+        return fare, startseg, endseg, timeschedule
 
 def train_and_time(train_id, location, destination):
     bigger_train_id_and_time = []
@@ -243,6 +257,14 @@ def Confirmation(train, fname, lname, email, cc, billing, date, fare, startseg, 
 
 def Cancellation(reservation_id):
     cursor = connection.cursor()
+    cursor.execute("""select trip_date from trips WHERE  reservation_id = %s""", [reservation_id])
+    date = cursor.fetchone()
+    cursor.execute("""select trip_seg_start from trips WHERE  reservation_id = %s""", [reservation_id])
+    start = cursor.fetchone()
+    cursor.execute("""select trip_seg_ends from trips WHERE  reservation_id = %s""", [reservation_id])
+    end = cursor.fetchone()
+    cursor.execute("""select trip_train_id from trips WHERE  reservation_id = %s""", [reservation_id])
+    id = cursor.fetchone()
     cursor.execute("""delete from trips WHERE reservation_id = %s""",[reservation_id])
     transaction.commit()
     cursor.execute("""select paying_passenger_id from reservations WHERE reservation_id = %s""",[reservation_id])
@@ -251,7 +273,16 @@ def Cancellation(reservation_id):
     transaction.commit()
     cursor.execute("""delete from passengers WHERE passenger_id = %s""",[passid[0]])
     transaction.commit()
+    updateseat(id[0],date[0],start[0],end[0])
     cursor.close()
+
+def updateseat(trainid,date,start,end):
+    cursor = connection.cursor()
+    segment= range(start,end+1)
+    for seg in segment:
+        cursor.execute("""update seats_free set freeseat = freeseat + 1 WHERE train_id = %s and 
+        seat_free_date = %s and segment_id = %s""",[trainid,date,seg])
+        transaction.commit()
 
 # fare,startseg,endseg,trainsche = ChoosingTrain('Boston, MA - South Station', 'Stamford, CT', "2018-01-12", "adult")
 # print(trainsche)

@@ -163,7 +163,8 @@ def ChoosingTrain(location, destination, date, faretype):
     timeschedule = train_and_time(trainstochoose, startseg, endseg)
     return fare, startseg, endseg, timeschedule
 
-
+#pre:takes two express pair
+#post: returns the schedule for those two staions
 def expressTrain(location, destination, date, faretype):
     # variables
     start = []
@@ -183,18 +184,12 @@ def expressTrain(location, destination, date, faretype):
         yes = can_reserve(train,segmentlist,date)
         if(yes != True):
             listoftrain.remove(train)
-    # print(listoftrain)
     i = [1, 3, 6, 7, 8, 9,11,14, 15, 16, 17,18, 19,20,21, 22, 23, 24, 25, 26, 27, 28]
     message = "No express trains"
     for x in i:
          if x in listoftrain:
              listoftrain.remove(x)
-    print(listoftrain)
     remove = []
-    print(endid)
-    temp = listoftrain
-    count = 0
-
     for trains in listoftrain:
         cursor.execute("""select station_id from stops_at WHERE train_id = %s""",[trains])
         row = cursor.fetchall()
@@ -202,11 +197,6 @@ def expressTrain(location, destination, date, faretype):
             remove.append(i[0])
         if endid not in remove:
             listoftrain.remove(trains)
-        print(count)
-        count += 1
-    print(remove)
-    print(listoftrain)
-    #listoftrain.remove(4)
     if len(listoftrain)==0:
         return message
     else:
@@ -218,7 +208,6 @@ def expressTrain(location, destination, date, faretype):
         endseg = endid
         timeschedule = train_and_time(trainstochoose, startseg, endseg)
         return fare, startseg, endseg, timeschedule
-
 
 
 # pre:take a list of trainid, location, and destination
@@ -247,10 +236,6 @@ def getid(fname):
 # pre:takes all of the parameter
 # post: insert into the passenger,trips,and reservation table
 def Confirmation(train, fname, lname, email, cc, billing, date, fare, startseg, endseg, faretype):
-    # i = [2,4,5,10,12,13]
-    # if train in i:
-    #     fare = (fare * 1.02) + fare
-    #     fare = float("{:.2f}".format(fare))
     passenger(fname, lname, email, cc, billing)
     passid, reservationid = getid(fname)
     reservation(date, passid, cc, billing)
@@ -260,22 +245,42 @@ def Confirmation(train, fname, lname, email, cc, billing, date, fare, startseg, 
 
 
 def Cancellation(reservation_id):
+    #variables for updateseat
+    cursor.execute("""select trip_date from trips WHERE  reservation_id = %s""",[reservation_id])
+    date = cursor.fetchone()
+    cursor.execute("""select trip_seg_start from trips WHERE  reservation_id = %s""",[reservation_id])
+    start = cursor.fetchone()
+    cursor.execute("""select trip_seg_ends from trips WHERE  reservation_id = %s""",[reservation_id])
+    end = cursor.fetchone()
+    cursor.execute("""select trip_train_id from trips WHERE  reservation_id = %s""",[reservation_id])
+    id = cursor.fetchone()
     cursor.execute("""delete from trips WHERE reservation_id = %s""",[reservation_id])
     db.commit()
     cursor.execute("""select paying_passenger_id from reservations WHERE reservation_id = %s""",[reservation_id])
     passid = cursor.fetchone()
-    cursor.execute("""delete from reservations WHERE reservation_id = %s""",[reservation_id])
+    cursor.execute("""delete from reservations WHERE reservation_id = %s""", [reservation_id])
     db.commit()
-    cursor.execute("""delete from passengers WHERE passenger_id = %s""",[passid[0]])
+    cursor.execute("""delete from passengers WHERE passenger_id = %s""", [passid[0]])
     db.commit()
+    updateseat(id[0],date[0],start[0],end[0])
 
 
 
-#Cancellation(8)
+def updateseat(trainid,date,start,end):
+    segment= range(start,end+1)
+    for seg in segment:
+        cursor.execute("""update seats_free set freeseat = freeseat + 1 WHERE train_id = %s and 
+        seat_free_date = %s and segment_id = %s""",[trainid,date,seg])
+        db.commit()
+
+
+Cancellation(11)
+#updateseat(1,"2018-01-12",1,5)
 
 #print(ChoosingTrain('Boston, MA - South Station','Kingston, RI', "2018-01-10", "adult"))
-print(expressTrain('Boston, MA - South Station','New Rochelle, NY', "2018-01-10", "adult"))
-print(expressTrain('Wilmington, DE - J.R. Biden, Jr. Station','Metro Park, NJ', "2018-01-10", "adult"))
+#print(expressTrain('Boston, MA - South Station','New Rochelle, NY', "2018-01-10", "adult"))
+#print(expressTrain('Wilmington, DE - J.R. Biden, Jr. Station','Metro Park, NJ', "2018-01-10", "adult"))
+
 
 #
 # #it works
