@@ -63,5 +63,5 @@ def get_time(train_id, location, destination):
     return my_bigger_list
 
 #print(get_time([1,2,3,4,5],1,12))
-
+print(get_segments(1,7))
 #print(get_avail_trains_free_seats([23,24,25,26,27,28],[1,2,3,4,5,6,7,8,9,10,11],'2018-01-13'))
