@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^$', views.TrainLookUpView, name='reservation'),
     url(r'completereservation',views.reserve,name='reservation'),
     url(r'getreservation',views.search_resersation,name='searchreservation'),
+    url(r'expresstrains',views.expressReservationViewSet,name='express schedule'),
     url(r'cancel',views.deletereservation,name='cancel')
 ]
