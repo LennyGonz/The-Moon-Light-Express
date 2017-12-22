@@ -283,6 +283,7 @@ def updateseat(trainid,date,start,end):
         cursor.execute("""update seats_free set freeseat = freeseat + 1 WHERE train_id = %s and 
         seat_free_date = %s and segment_id = %s""",[trainid,date,seg])
         transaction.commit()
+    cursor.close
 
 # fare,startseg,endseg,trainsche = ChoosingTrain('Boston, MA - South Station', 'Stamford, CT', "2018-01-12", "adult")
 # print(trainsche)
