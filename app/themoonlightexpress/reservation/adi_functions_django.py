@@ -2,10 +2,10 @@ import datetime
 from django.db import connection, transaction
 
 # db = MySQLdb.connect("35.224.16.194", "carlos", "carlos", "railroad1")
+cursor = connection.cursor()
 
 
 def get_segments(location_id, destination_id):
-    cursor = connection.cursor()
     segments = []
     if (location_id < destination_id):
         for i in range(location_id, destination_id):
@@ -22,14 +22,11 @@ def get_segments(location_id, destination_id):
                            "%s and seg_s_end = %s", (y, y + 1))
             row = cursor.fetchone()
             segments.append(row[0])
-
             y += 1
-    cursor.close()
     return segments
 
 
 def get_avail_trains_free_seats(train_id, segment_id, date):
-    cursor = connection.cursor()
     train_id_list = []
     for i in range(0, len(train_id)):
         free_seats = []
@@ -49,18 +46,18 @@ def get_avail_trains_free_seats(train_id, segment_id, date):
         if l == 0:
             train_id_list.append(train_id[i])
         i += 1
-    cursor.close()
     return train_id_list
 
 
 def get_time(train_id, location, destination):
-    cursor = connection.cursor()
     my_bigger_list = []
     for i in range(0, len(train_id)):
+        print(train_id[i])
         mylist = []
         cursor.execute("SELECT time_out from stops_at WHERE train_id = %s and "
                        "station_id = %s", (train_id[i], location))
         row = cursor.fetchone()
+        print(row,location)
         mylist.append(str(row[0]))
         cursor.execute("SELECT time_in from stops_at WHERE train_id = %s and "
                        "station_id = %s", (train_id[i], destination))
@@ -68,7 +65,6 @@ def get_time(train_id, location, destination):
         print(row)
         mylist.append(str(row[0]))
         my_bigger_list.append(mylist)
-    cursor.close()
     return my_bigger_list
 
     # print(get_time([1,2,3,4,5],1,12))

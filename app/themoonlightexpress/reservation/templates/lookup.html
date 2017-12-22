@@ -1,24 +1,22 @@
-{% extends "landingpage.html" %}
-<p></p>
-{% load crispy_forms_tags %}
-<p></p>
-{% block title %} Moonlight Express {% endblock %}
+{% extends "landingpage.html" %} {% load crispy_forms_tags %}
 <p></p>
 {% block content %}
 <div class="col-2"></div>
 <div class="col-8">
     {% load crispy_forms_tags %}
-    <h2 style="text-align:center; padding-top:9px;">Reservation</h2>
+
+    <h2 style="text-align:center; padding-top:9px;">Trip look up</h2>
     <div>
         <form class="maintextbox divcenter" action="" method="POST">
             {% csrf_token %}
             <p></p>
+
             <!--
-            {% for field in form|crispy %}
-            <p> {{ field.label_tag }} </p>
-            <p> {{ field }} </p>
-            </p>
-            {% endfor %}
+                {% for field in form %}
+                <p> {{ field.label_tag }} </p>
+                <p> {{ field }} </p>
+                </p>
+                {% endfor %}
             -->
             {{ form|crispy }} {% if field.help_text %}
             <small style="color: grey">{{ field.help_text }}</small>
@@ -29,7 +27,7 @@
             <p style="color: red">{{ error }}</p>
             {% endfor %}
             <form action="" method="POST">
-                <input class="reservebutton" type="submit" name="reserve" value="Find Trips">
+                <input class="reservebutton" type="submit" name="search" value="Search">
             </form>
         </form>
     </div>

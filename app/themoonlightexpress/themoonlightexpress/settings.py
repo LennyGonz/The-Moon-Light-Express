@@ -77,16 +77,17 @@ WSGI_APPLICATION = 'themoonlightexpress.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'railroad1',
-#         'USER': 'LENSTER',
-#         'PASSWORD': 'csc336',
-#         'HOST': '35.224.16.194',
-#         'PORT': '3306',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'railroad1',
+        'USER': 'LENSTER',
+        'PASSWORD': 'csc336',
+        'HOST': '35.224.16.194',
+        'PORT': '3306',
+    }
+}
+'''
 if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
     # Running on production App Engine, so connect to Google Cloud SQL using
     # the unix socket at /cloudsql/<your-cloudsql-connection string>
@@ -116,7 +117,7 @@ else:
             'PASSWORD': 'csc336',
         }
     }
-
+'''
 
 
 # Password validation
