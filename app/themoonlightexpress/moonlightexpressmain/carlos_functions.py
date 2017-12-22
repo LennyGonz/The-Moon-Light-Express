@@ -183,18 +183,41 @@ def expressTrain(location, destination, date, faretype):
         yes = can_reserve(train,segmentlist,date)
         if(yes != True):
             listoftrain.remove(train)
+    # print(listoftrain)
     i = [1, 3, 6, 7, 8, 9,11,14, 15, 16, 17,18, 19,20,21, 22, 23, 24, 25, 26, 27, 28]
+    message = "No express trains"
     for x in i:
-        if x in listoftrain:
-            listoftrain.remove(x)
-    trainstochoose = get_avail_trains_free_seats(listoftrain, segmentlist, date)
-    fare = int(Totalfare(segmentlist, faretype))
-    fare = (fare * 1.02) + fare
-    fare = float("{:.2f}".format(fare))
-    startseg = startid
-    endseg = endid
-    timeschedule = train_and_time(trainstochoose, startseg, endseg)
-    return fare, startseg, endseg, timeschedule
+         if x in listoftrain:
+             listoftrain.remove(x)
+    print(listoftrain)
+    remove = []
+    print(endid)
+    temp = listoftrain
+    count = 0
+
+    for trains in listoftrain:
+        cursor.execute("""select station_id from stops_at WHERE train_id = %s""",[trains])
+        row = cursor.fetchall()
+        for i in row:
+            remove.append(i[0])
+        if endid not in remove:
+            listoftrain.remove(trains)
+        print(count)
+        count += 1
+    print(remove)
+    print(listoftrain)
+    #listoftrain.remove(4)
+    if len(listoftrain)==0:
+        return message
+    else:
+        trainstochoose = get_avail_trains_free_seats(listoftrain, segmentlist, date)
+        fare = int(Totalfare(segmentlist, faretype))
+        fare = (fare * 1.02) + fare
+        fare = float("{:.2f}".format(fare))
+        startseg = startid
+        endseg = endid
+        timeschedule = train_and_time(trainstochoose, startseg, endseg)
+        return fare, startseg, endseg, timeschedule
 
 
 
@@ -224,6 +247,10 @@ def getid(fname):
 # pre:takes all of the parameter
 # post: insert into the passenger,trips,and reservation table
 def Confirmation(train, fname, lname, email, cc, billing, date, fare, startseg, endseg, faretype):
+    # i = [2,4,5,10,12,13]
+    # if train in i:
+    #     fare = (fare * 1.02) + fare
+    #     fare = float("{:.2f}".format(fare))
     passenger(fname, lname, email, cc, billing)
     passid, reservationid = getid(fname)
     reservation(date, passid, cc, billing)
@@ -246,9 +273,9 @@ def Cancellation(reservation_id):
 
 #Cancellation(8)
 
-print(ChoosingTrain('Boston, MA - South Station','New Rochelle, NY', "2018-01-10", "adult"))
+#print(ChoosingTrain('Boston, MA - South Station','Kingston, RI', "2018-01-10", "adult"))
 print(expressTrain('Boston, MA - South Station','New Rochelle, NY', "2018-01-10", "adult"))
-
+print(expressTrain('Wilmington, DE - J.R. Biden, Jr. Station','Metro Park, NJ', "2018-01-10", "adult"))
 
 #
 # #it works
