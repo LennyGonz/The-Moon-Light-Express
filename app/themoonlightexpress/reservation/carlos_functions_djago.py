@@ -156,6 +156,7 @@ def ChoosingTrain(location, destination, date, faretype):
     # functions
     northorsouth = direction(startid, endid)
     segmentlist = get_segments(startid, endid)
+    print("Choosing: ",date)
     day = MF(date)
     listoftrain = trainsavible(northorsouth, day)
     # If this breaks the form this is the new thing i added, this checks for trains that have seat,
