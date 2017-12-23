@@ -48,6 +48,7 @@ def MF(date1):
     year = int(data[0])
     month = int(data[1])
     day = int(data[2])
+    print(data)
     weekday = datetime.date(year, month, day).weekday()
     if (weekday == 5):
         day = 0
@@ -146,6 +147,7 @@ def schedule(id):
 # post:reservation process
 
 def ChoosingTrain(location, destination, date, faretype):
+
     # variables
     start = []
     end = []
@@ -183,7 +185,7 @@ def ChoosingTrain(location, destination, date, faretype):
 # post: returns the schedule for those two staions
 
 def expressTrain(location, destination, date, faretype):
-    # variables
+    cursor = connection.cursor()
     start = []
     end = []
     startid = int(location)
@@ -205,25 +207,17 @@ def expressTrain(location, destination, date, faretype):
     for x in i:
         if x in listoftrain:
             listoftrain.remove(x)
-    remove = []
-    for trains in listoftrain:
-        cursor.execute("""select station_id from stops_at WHERE train_id = %s""", [trains])
-        row = cursor.fetchall()
-        for i in row:
-            remove.append(i[0])
-        if endid not in remove:
-            listoftrain.remove(trains)
-    if len(listoftrain) == 0:
-        return message
-    else:
-        trainstochoose = get_avail_trains_free_seats(listoftrain, segmentlist, date)
-        fare = int(Totalfare(segmentlist, faretype))
-        fare = (fare * 1.02) + fare
-        fare = float("{:.2f}".format(fare))
-        startseg = startid
-        endseg = endid
-        timeschedule = train_and_time(trainstochoose, startseg, endseg)
-        return fare, startseg, endseg, timeschedule
+    print(listoftrain)
+    trainstochoose = get_avail_trains_free_seats(listoftrain, segmentlist, date)
+    fare = int(Totalfare(segmentlist, faretype))
+    fare = (fare * 1.02) + fare
+    fare = float("{:.2f}".format(fare))
+    startseg = startid
+    endseg = endid
+    timeschedule = train_and_time(trainstochoose, startseg, endseg)
+    cursor.close()
+    return fare, startseg, endseg, timeschedule
+
 
 
 def train_and_time(train_id, location, destination):
@@ -288,7 +282,7 @@ def updateseat(trainid, date, start, end):
         cursor.execute("""update seats_free set freeseat = freeseat + 1 WHERE train_id = %s and 
         seat_free_date = %s and segment_id = %s""", [trainid, date, seg])
         transaction.commit()
-    cursor.close
+    cursor.close()
 
 # fare,startseg,endseg,trainsche = ChoosingTrain('Boston, MA - South Station', 'Stamford, CT', "2018-01-12", "adult")
 # print(trainsche)
