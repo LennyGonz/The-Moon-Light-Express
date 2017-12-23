@@ -27,8 +27,11 @@ def TrainLookUpView(request, METHOD=['GET', 'POST']):
             trainsid = trainsavible(train_direction, day)
             fake_fare_type = 'adult'
             print(request.POST['date'])
-            fare, startseg, endseg, trainslist = ChoosingTrain(location=start, destination=end,
+            try:
+                fare, startseg, endseg, trainslist = ChoosingTrain(location=start, destination=end,
                                                                    date=request.POST['date'], faretype=fake_fare_type)
+            except Exception:
+                return HttpResponse("No Trains available for this schedule")
 
 
             for data in trainslist:
