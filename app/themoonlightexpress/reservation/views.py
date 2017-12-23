@@ -144,22 +144,23 @@ def expressReservationViewSet(request, MeTHOD=["GET", "POST"]):
         trainslist = None
         start_station = None
         end_station = None
-        date = None
+        date_ta = None
 
-        print(request.POST['start_station'])
+        print(request.POST['date'])
 
         if form.is_valid():
             start = request.POST['start_station']
             end = request.POST['end_station']
+            _date = request.POST['date']
 
             # if request.POST['date'] < datetime.datetime.today():
             #     return HttpResponse("This date is Not Valid please Choose a date in the future")
             train_direction = direction(start, end)
             day = MF(date1=request.POST['date'])
             trainsid = trainsavible(train_direction, day)
-            fake_fare_type = 'adult'
-            fare, startseg, endseg, trainslist = expressTrain(location=start, destination=end,
-                                                              date=request.POST['date'], faretype=fake_fare_type)
+            fare_type = 'adult'
+            print()
+            fare, startseg, endseg,trainslist = expressTrain(location=start, destination=end,date=_date, faretype=fare_type)
             print(len(trainslist))
             if len(trainslist) < 1:
                 start_station = Stations.objects.get(station_id=start)
@@ -169,7 +170,7 @@ def expressReservationViewSet(request, MeTHOD=["GET", "POST"]):
                 return render(request, "noTrainsAvailable.html", {"trains": train_and_startime,
                                                                   "start": start_station,
                                                                   "end": end_station,
-                                                                  "date": date,
+                                                                  "date": _date,
                                                                   "fare_A": fare})
             for data in trainslist:
                 train_and_startime[data[0]] = data[1]
