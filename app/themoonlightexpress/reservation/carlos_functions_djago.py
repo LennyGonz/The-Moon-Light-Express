@@ -156,7 +156,7 @@ def ChoosingTrain(location, destination, date, faretype):
     # functions
     northorsouth = direction(startid, endid)
     segmentlist = get_segments(startid, endid)
-    print("Choosing: ",date)
+    print("Choosing: ", date)
     day = MF(date)
     listoftrain = trainsavible(northorsouth, day)
     # If this breaks the form this is the new thing i added, this checks for trains that have seat,
@@ -178,8 +178,9 @@ def ChoosingTrain(location, destination, date, faretype):
     timeschedule = train_and_time(trainstochoose, startseg, endseg)
     return fare, startseg, endseg, timeschedule
 
-#pre:takes two express pair
-#post: returns the schedule for those two staions
+
+# pre:takes two express pair
+# post: returns the schedule for those two staions
 
 def expressTrain(location, destination, date, faretype):
     # variables
@@ -225,7 +226,6 @@ def expressTrain(location, destination, date, faretype):
         return fare, startseg, endseg, timeschedule
 
 
-
 def train_and_time(train_id, location, destination):
     bigger_train_id_and_time = []
     my_bigger_list = get_time(train_id, location, destination)
@@ -268,7 +268,7 @@ def Cancellation(reservation_id):
     end = cursor.fetchone()
     cursor.execute("""select trip_train_id from trips WHERE  reservation_id = %s""", [reservation_id])
     id = cursor.fetchone()
-    cursor.execute("""delete from trips WHERE reservation_id = %s""",[reservation_id])
+    cursor.execute("""delete from trips WHERE reservation_id = %s""", [reservation_id])
 
     transaction.commit()
     cursor.execute("""select paying_passenger_id from reservations WHERE reservation_id = %s""", [reservation_id])
@@ -277,16 +277,16 @@ def Cancellation(reservation_id):
     transaction.commit()
     cursor.execute("""delete from passengers WHERE passenger_id = %s""", [passid[0]])
     transaction.commit()
-    updateseat(id[0],date[0],start[0],end[0])
+    updateseat(id[0], date[0], start[0], end[0])
     cursor.close()
 
 
-def updateseat(trainid,date,start,end):
+def updateseat(trainid, date, start, end):
     cursor = connection.cursor()
-    segment= range(start,end+1)
+    segment = range(start, end + 1)
     for seg in segment:
         cursor.execute("""update seats_free set freeseat = freeseat + 1 WHERE train_id = %s and 
-        seat_free_date = %s and segment_id = %s""",[trainid,date,seg])
+        seat_free_date = %s and segment_id = %s""", [trainid, date, seg])
         transaction.commit()
     cursor.close
 
@@ -302,4 +302,3 @@ def updateseat(trainid,date,start,end):
 # print(Totalfare((1,2,3,4,5),"adult"))
 # #reservation("2017-2-13",1,"544765434546","NY")
 ##passenger("rohan","swaby","lol@gmail.com","1235","654325543","BRONX")
-

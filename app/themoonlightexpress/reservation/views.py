@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from .forms import *
 from .carlos_functions_djago import *
@@ -100,8 +100,13 @@ def search_resersation(request, METHOD=["GET", "POST"]):
     if request.method == "POST":
         form = Search_resersationform(request.POST)
         if form.is_valid():
+
             __trip = request.POST["reservation_Number"]
-            details = Trips.objects.get(reservation=__trip)
+            try:
+
+                details = Trips.objects.get(reservation=__trip)
+            except Exception:
+                return HttpResponse("Reservation does not exits")
 
             tripInfo = {
                 "trip_date": details.trip_date,
@@ -132,8 +137,21 @@ def search_resersation(request, METHOD=["GET", "POST"]):
 def deletereservation(request, METHOD=["GET", "POST"]):
     if request.method == "GET":
         print(request.GET)
-        Cancellation(request.GET["reservation"])
+        try:
+            Cancellation(request.GET["reservation"])
+        except Exception:
+            return HttpResponse("Reservation does not exits")
         return HttpResponse("Your Trip has been canceled")
+
+
+def rebook(request, METHOD=["GET", "POST"]):
+    if request.method == "GET":
+        print(request.GET)
+        try:
+            Cancellation(request.GET["reservation"])
+        except Exception:
+            return HttpResponse("Reservation does not exits")
+        return redirect('/')
 
 
 def expressReservationViewSet(request, MeTHOD=["GET", "POST"]):
