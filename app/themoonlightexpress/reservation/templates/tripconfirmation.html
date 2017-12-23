@@ -1,21 +1,21 @@
+{% extends "landingpage.html" %}
+<!-- -->
 {% block title %} Thank Your For purchasing {% endblock %}
-
+<!-- -->
 {% block content %}
-
-<h1>Trip recipt: save reservation to view/canel</h1>
-<lu>
-    <li><strong>Train:</strong> {{ trip.trip_train }}</li>
-    <li><strong>Reservation:</strong> {{ trip.reservation }}</li>
-    <li><strong>Fare type:</strong> {{ trip.fare_type }}</li>
-    <li><strong>fare $:</strong> {{ trip.fare }}</li>
-    <li><strong>Start Station:</strong> {{ trip.trip_seg_start }}</li>
-    <li><strong>End Station:</strong> {{ trip.trip_seg_ends }}</li>
-    <li><strong>Trip Date:</strong> {{ trip.trip_date }}</li>
-    <li><strong>Departure time:</strong> {{ trip.departuretime }}</li>
-    <li><strong>Arival time:</strong> {{ trip.arivaltime }}</li>
-</lu>
-<form action = "" method="get">
-         <input type="button" value="home " onclick="window.location.href='/'" />
-</form>
+<div style="margin: 0 auto">
+    <h1 style="text-align:center">Trip recipt: save reservation to view/Canel</h1>
+    <ul>
+        <li><strong>Train:</strong> {{ trip.trip_train }}</li>
+        <li><strong>Reservation:</strong> {{ trip.reservation }}</li>
+        <li><strong>Fare type:</strong> {{ trip.fare_type }}</li>
+        <li><strong>fare $:</strong> {{ trip.fare }}</li>
+        <li><strong>Start Station:</strong> {{ trip.trip_seg_start }}</li>
+        <li><strong>End Station:</strong> {{ trip.trip_seg_ends }}</li>
+        <li><strong>Trip Date:</strong> {{ trip.trip_date }}</li>
+        <li><strong>Departure time:</strong> {{ trip.departuretime }}</li>
+        <li><strong>Arival time:</strong> {{ trip.arivaltime }}</li>
+    </ul>
+</div>
 
 {% endblock %}

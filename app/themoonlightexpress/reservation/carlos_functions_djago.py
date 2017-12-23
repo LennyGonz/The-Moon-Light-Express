@@ -202,6 +202,8 @@ def expressTrain(location, destination, date, faretype):
         if (yes != True):
             listoftrain.remove(train)
     i = [1, 3, 6, 7, 8, 9, 11, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28]
+
+    message = "No express trains"
     for x in i:
         if x in listoftrain:
             listoftrain.remove(x)
@@ -215,6 +217,7 @@ def expressTrain(location, destination, date, faretype):
     timeschedule = train_and_time(trainstochoose, startseg, endseg)
     cursor.close()
     return fare, startseg, endseg, timeschedule
+
 
 
 def train_and_time(train_id, location, destination):

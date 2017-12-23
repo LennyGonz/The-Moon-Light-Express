@@ -15,4 +15,8 @@
      <form action = "" method="get">
          <input type="button" value="Cancel reservation" onclick="window.location.href='/cancel?reservation={{TripInfo.reservation}}'" />
      </form>
+
+    <form action = "" method="get">
+         <input type="button" value="Rebook" onclick="window.location.href='/rebook?reservation={{TripInfo.reservation}}'" />
+     </form>
 {% endblock %}
