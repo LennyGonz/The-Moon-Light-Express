@@ -27,8 +27,11 @@ def TrainLookUpView(request, METHOD=['GET', 'POST']):
             trainsid = trainsavible(train_direction, day)
             fake_fare_type = 'adult'
             print(request.POST['date'])
-            fare, startseg, endseg, trainslist = ChoosingTrain(location=start, destination=end,
+            try:
+                fare, startseg, endseg, trainslist = ChoosingTrain(location=start, destination=end,
                                                                    date=request.POST['date'], faretype=fake_fare_type)
+            except Exception:
+                return HttpResponse("No Trains available for this schedule")
 
 
             for data in trainslist:
@@ -176,7 +179,10 @@ def expressReservationViewSet(request, MeTHOD=["GET", "POST"]):
             trainsid = trainsavible(train_direction, day)
             fare_type = 'adult'
             print()
-            fare, startseg, endseg,trainslist = expressTrain(location=start, destination=end,date=_date, faretype=fare_type)
+            try:
+                fare, startseg, endseg,trainslist = expressTrain(location=start, destination=end,date=_date, faretype=fare_type)
+            except Exception:
+                return HttpResponse("Something went wrong! Go back and check your date.")
             print(len(trainslist))
             if len(trainslist) < 1:
                 start_station = Stations.objects.get(station_id=start)
