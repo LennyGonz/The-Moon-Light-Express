@@ -179,7 +179,10 @@ def expressReservationViewSet(request, MeTHOD=["GET", "POST"]):
             trainsid = trainsavible(train_direction, day)
             fare_type = 'adult'
             print()
-            fare, startseg, endseg,trainslist = expressTrain(location=start, destination=end,date=_date, faretype=fare_type)
+            try:
+                fare, startseg, endseg,trainslist = expressTrain(location=start, destination=end,date=_date, faretype=fare_type)
+            except Exception:
+                return HttpResponse("Something went wrong! Go back and check your date.")
             print(len(trainslist))
             if len(trainslist) < 1:
                 start_station = Stations.objects.get(station_id=start)
