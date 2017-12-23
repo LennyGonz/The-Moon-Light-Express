@@ -75,11 +75,12 @@ def reserve(request, METHOD=["GET", "POST"]):
                 "billing_address": request.POST['preferred_billing_address']
             }
             Reservations.objects.create(**reservationInfo)
+            print(Segments.objects.get(seg_n_end__station_name=request.POST['end_station']))
 
             tripInfo = {
                 "trip_date": request.POST['trip_date'],
                 "trip_seg_start": Segments.objects.get(seg_n_end__station_name=request.POST['start_station']),
-                "trip_seg_ends": Segments.objects.get(seg_s_end__station_name=request.POST['end_station']),
+                "trip_seg_ends": Segments.objects.get(seg_n_end__station_name=request.POST['end_station']),
                 "fare_type": FareTypes.objects.get(fare_id=request.POST['fare_type']),
                 "fare": request.GET["fare"],
                 "trip_train": Trains.objects.get(train_id=request.POST['train']),
