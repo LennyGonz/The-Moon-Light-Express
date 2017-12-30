@@ -37,9 +37,12 @@ Insert GIF here of working project
 * In one terminal using the command: ./cloud_sql_proxy -instances=team8-railroad:us-central1:rail=tcp:3306
 * In a second terminal use the command: python manage.py runserver
 
-## Built With
+## Built using
 
 * [Django](https://www.djangoproject.com/) - Web framework 
+* [Python] (https://www.python.org/)
+* [MySQL] (https://www.mysql.com/)
+* [HTML5/CSS3]
 
 ## Railroad Builders
 
