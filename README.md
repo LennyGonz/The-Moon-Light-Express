@@ -40,9 +40,6 @@ Insert GIF here of working project
 ## Built using
 
 * [Django](https://www.djangoproject.com/) - Web framework 
-* [Python] (https://www.python.org/) - Backend language
-* [MySQL] (https://www.mysql.com/) - Database
-* [HTML5/CSS3] (https://developers.google.com/web/) - Frontend language
 
 ## Railroad Builders
 
