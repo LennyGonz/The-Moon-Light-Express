@@ -17,28 +17,25 @@
 
 ## Description
 CSc 33600 - Database Project: RailRoad System
-Insert GIF here of working project
 
-To  Run locally, you will need to open up a proxy 
-* In one terminal using the command: ./cloud_sql_proxy -instances=team8-railroad:us-central1:rail=tcp:3306
-* In a second terminal use the command: python manage.py runserver
+Insert GIF here of working project
 
 ## Diagrams
 <h1 align="center">
   <br>
-  <a href="websitehere"><img src="https://raw.githubusercontent.com/Miguel75An/The-Moon-Light-Express/master/pic/ER%20Diagram%20Improved%20Team8.png" alt="The Moonlight Express"></a>
+  <a href="https://team8-railroad.appspot.com/"><img src="https://raw.githubusercontent.com/Miguel75An/The-Moon-Light-Express/master/pic/ER%20Diagram%20Improved%20Team8.png" alt="The Moonlight Express"></a>
 </h1>
 
 <h1 align="center">
   <br>
-  <a href="websitehere"><img src="https://raw.githubusercontent.com/Miguel75An/The-Moon-Light-Express/master/pic/Flow%20Chart%20Team8.png" alt="The Moonlight Express"></a>
+  <a href="https://team8-railroad.appspot.com/"><img src="https://raw.githubusercontent.com/Miguel75An/The-Moon-Light-Express/master/pic/Flow%20Chart%20Team8.png" alt="The Moonlight Express"></a>
 </h1>
 
-## Getting Started
-
-* turn on your computer
-
 ## Deployment
+
+* To  Run locally, you will need to open up a proxy 
+* In one terminal using the command: ./cloud_sql_proxy -instances=team8-railroad:us-central1:rail=tcp:3306
+* In a second terminal use the command: python manage.py runserver
 
 ## Built With
 
