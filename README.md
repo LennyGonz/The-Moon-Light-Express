@@ -40,6 +40,10 @@ Insert GIF here of working project
 ## Built using
 
 * [Django](https://www.djangoproject.com/) - Web framework 
+* [HTML5/CSS3](https://developers.google.com/web/) - Frontend language
+* [Python](https://www.python.org/) - Backend language
+* [MySQL](https://www.mysql.com/) - Database
+
 
 ## Railroad Builders
 
@@ -48,8 +52,6 @@ Insert GIF here of working project
 * **Carlos Ng Sang** - [Cng000](https://github.com/Cng000)
 * **Miguel Dominguez** - [Miguel75An](https://github.com/Miguel75An)
 * **Aditya Majithia** - [amajithia](https://github.com/amajithia)
-
-## Acknowledgments
 
 
 
